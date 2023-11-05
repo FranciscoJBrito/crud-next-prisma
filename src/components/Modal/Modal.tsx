@@ -1,23 +1,25 @@
 'use client'
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { useState } from "react";
+import { XCircleIcon } from "@heroicons/react/24/outline";
+import Form from "../ui/Form";
 
 export default function MyModal(props: {title: string}) {
   //Handle Modal
-  let [isOpen, setIsOpen] = useState(true);
+  let [isOpen, setIsOpen] = useState(false);
   const handleModal = () => {
     setIsOpen(!isOpen);
   };
 
   return (
     <>
-      <div className="fixed inset-0 flex items-center justify-center">
+      <div className="absolute right-4">
         <button
           type="button"
           onClick={handleModal}
-          className="rounded-md bg-black/20 px-4 py-2 text-sm font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
+          className="rounded-md bg-lime-600 px-4 py-2 text-sm font-medium text-white hover:bg-lime-400 "
         >
-          Open dialog
+          Crear Nota
         </button>
       </div>
 
@@ -59,20 +61,17 @@ export default function MyModal(props: {title: string}) {
                   >
                     {props.title}
                   </Dialog.Title>
-                  <div className="mt-2">
-                    <p className="text-sm text-gray-500">
-                      Your payment has been successfully submitted. We’ve sent
-                      you an email with all of the details of your order.
-                    </p>
+                  <div className="mt-2 w-96">
+                    <Form />
                   </div>
 
-                  <div className="absolute rounded-[50%] p-2 top-0 right-2">
+                  <div className="absolute rounded-[50%] p-2 top-0 right-0">
                     <button
                       type="button"
                       className=""
                       onClick={handleModal}
                     >
-                      x
+                      <XCircleIcon className="w-7 h-7 text-black/50"/>
                     </button>
                   </div>
                 </Dialog.Panel>

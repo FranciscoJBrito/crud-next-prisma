@@ -15,5 +15,19 @@ export const getNotes = async () => {
       )
     );
 
-    return notes
+  return notes;
+};
+
+export const createNote = async (props: { title: string; content: string }) => {
+  const baseURL = '/api/notes';
+  const data = {
+    title: props.title,
+    content: props.content
+  }
+  await fetch(baseURL, {
+    method: "POST",
+    body: JSON.stringify(data)
+  })
+    .then(res => console.log(res))
+    .catch(error => console.log(error))
 };
