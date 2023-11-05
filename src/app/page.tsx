@@ -11,7 +11,7 @@ const HomePage = async () => {
   }
 
   return (
-    <div>
+    <div className="flex flex-col items-center justify-start">
       <div className="w-[50%]">
         <Form />
       </div>
