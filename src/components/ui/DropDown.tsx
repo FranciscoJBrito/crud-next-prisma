@@ -1,18 +1,20 @@
-import { Menu, Transition } from '@headlessui/react'
-import { Fragment} from 'react'
-import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
+import { Menu, Transition } from "@headlessui/react";
+import { Fragment } from "react";
+import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
+import { NoteID } from "@/interfaces/Note";
+import { useNotes } from "@/hooks/useNotes";
 
 interface Props {
-      className: string,
-      aria_hidden: string
+  className: string;
+  aria_hidden: string;
 }
-export const DropDown = () => {
-
+export const DropDown = ({id}: NoteID) => {
+  const { deleteNote } = useNotes();
   return (
     <div className="absolute top-2 right-1 w-56 text-right">
       <Menu as="div" className="relative inline-block text-left">
         <div>
-          <Menu.Button>   
+          <Menu.Button>
             <EllipsisVerticalIcon
               className="h-6 w-6 text-black/60 hover:border-[1px] border-black/10 hover:rounded-[50%] hover:bg-black/5"
               aria-hidden="true"
@@ -34,7 +36,7 @@ export const DropDown = () => {
                 {({ active }) => (
                   <button
                     className={`${
-                      active ? 'bg-lime-400 text-gray-900' : 'text-gray-900'
+                      active ? "bg-lime-400 text-gray-900" : "text-gray-900"
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
                     {active ? (
@@ -56,7 +58,7 @@ export const DropDown = () => {
                 {({ active }) => (
                   <button
                     className={`${
-                      active ? 'bg-lime-400 text-gray-900' : 'text-gray-900'
+                      active ? "bg-lime-400 text-gray-900" : "text-gray-900"
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
                     {active ? (
@@ -80,7 +82,7 @@ export const DropDown = () => {
                 {({ active }) => (
                   <button
                     className={`${
-                      active ? 'bg-lime-400 text-gray-900' : 'text-gray-900'
+                      active ? "bg-lime-400 text-gray-900" : "text-gray-900"
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
                     {active ? (
@@ -102,7 +104,7 @@ export const DropDown = () => {
                 {({ active }) => (
                   <button
                     className={`${
-                      active ? 'bg-lime-400 text-gray-900' : 'text-gray-900'
+                      active ? "bg-lime-400 text-gray-900" : "text-gray-900"
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
                     {active ? (
@@ -126,8 +128,18 @@ export const DropDown = () => {
                 {({ active }) => (
                   <button
                     className={`${
-                      active ? 'bg-red-600 text-white' : 'text-gray-900'
+                      active ? "bg-red-600 text-white" : "text-gray-900"
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    onClick={async () => {
+                        console.log(id)
+                      if (
+                        confirm("Estas seguro de que deseas eliminar la nota?")
+                      ) {
+                        await deleteNote(id);
+                      } else {
+                        null;
+                      }
+                    }}
                   >
                     {active ? (
                       <DeleteActiveIcon
@@ -149,8 +161,8 @@ export const DropDown = () => {
         </Transition>
       </Menu>
     </div>
-  )
-}
+  );
+};
 
 function EditInactiveIcon(props: Props) {
   return (
@@ -167,7 +179,7 @@ function EditInactiveIcon(props: Props) {
         strokeWidth="2"
       />
     </svg>
-  )
+  );
 }
 
 function EditActiveIcon(props: Props) {
@@ -185,7 +197,7 @@ function EditActiveIcon(props: Props) {
         strokeWidth="2"
       />
     </svg>
-  )
+  );
 }
 
 function DuplicateInactiveIcon(props: Props) {
@@ -209,7 +221,7 @@ function DuplicateInactiveIcon(props: Props) {
         strokeWidth="2"
       />
     </svg>
-  )
+  );
 }
 
 function DuplicateActiveIcon(props: Props) {
@@ -233,7 +245,7 @@ function DuplicateActiveIcon(props: Props) {
         strokeWidth="2"
       />
     </svg>
-  )
+  );
 }
 
 function ArchiveInactiveIcon(props: Props) {
@@ -264,7 +276,7 @@ function ArchiveInactiveIcon(props: Props) {
       />
       <path d="M8 12H12" stroke="#A3E635" strokeWidth="2" />
     </svg>
-  )
+  );
 }
 
 function ArchiveActiveIcon(props: Props) {
@@ -295,7 +307,7 @@ function ArchiveActiveIcon(props: Props) {
       />
       <path d="M8 12H12" stroke="#ECFCCB" strokeWidth="2" />
     </svg>
-  )
+  );
 }
 
 function MoveInactiveIcon(props: Props) {
@@ -310,7 +322,7 @@ function MoveInactiveIcon(props: Props) {
       <path d="M16 4L8 12" stroke="#A3E635" strokeWidth="2" />
       <path d="M8 6H4V16H14V12" stroke="#A3E635" strokeWidth="2" />
     </svg>
-  )
+  );
 }
 
 function MoveActiveIcon(props: Props) {
@@ -325,7 +337,7 @@ function MoveActiveIcon(props: Props) {
       <path d="M16 4L8 12" stroke="#ECFCCB" strokeWidth="2" />
       <path d="M8 6H4V16H14V12" stroke="#ECFCCB" strokeWidth="2" />
     </svg>
-  )
+  );
 }
 
 function DeleteInactiveIcon(props: Props) {
@@ -348,7 +360,7 @@ function DeleteInactiveIcon(props: Props) {
       <path d="M3 6H17" stroke="#A3E635" strokeWidth="2" />
       <path d="M8 6V4H12V6" stroke="#A3E635" strokeWidth="2" />
     </svg>
-  )
+  );
 }
 
 function DeleteActiveIcon(props: Props) {
@@ -371,5 +383,5 @@ function DeleteActiveIcon(props: Props) {
       <path d="M3 6H17" stroke="#F8A5A5" strokeWidth="2" />
       <path d="M8 6V4H12V6" stroke="#F8A5A5" strokeWidth="2" />
     </svg>
-  )
+  );
 }
