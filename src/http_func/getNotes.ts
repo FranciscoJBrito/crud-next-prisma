@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 export const getNotes = async () => {
   const baseURL = `${process.env.BASE_URL}/api/notes`;
-  const notes = await fetch(baseURL, { method: "GET" })
+  const notes = await fetch(baseURL)
     .then((res) => res.json())
     .catch((error) =>
       NextResponse.json(
@@ -26,7 +26,10 @@ export const createNote = async (props: { title: string; content: string }) => {
   }
   await fetch(baseURL, {
     method: "POST",
-    body: JSON.stringify(data)
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json'
+    }
   })
     .then(res => console.log(res))
     .catch(error => console.log(error))

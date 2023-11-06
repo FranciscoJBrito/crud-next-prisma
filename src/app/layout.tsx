@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import NavBar from "@/components/NavBar/NavBar";
 import Sidebar from "@/components/Sidebar/Sidebar";
+import MyModal from "@/components/Modal/Modal";
+import { NotesProvider } from "@/context/NoteContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,10 +20,12 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-cream">
       <body className={inter.className}>
-        <NavBar />
         <div className="flex">
           <Sidebar />
+          <NotesProvider>
+          <MyModal title="Crear nota"/>
           {children}
+          </NotesProvider>
         </div>
       </body>
     </html>

@@ -1,10 +1,11 @@
-'use client'
+"use client";
 import { Dialog, Transition } from "@headlessui/react";
 import { useState } from "react";
 import { XCircleIcon } from "@heroicons/react/24/outline";
 import Form from "../ui/Form";
+import { PlusIcon } from "@heroicons/react/20/solid";
 
-export default function MyModal(props: {title: string}) {
+export default function MyModal(props: { title: string }) {
   //Handle Modal
   let [isOpen, setIsOpen] = useState(false);
   const handleModal = () => {
@@ -13,24 +14,16 @@ export default function MyModal(props: {title: string}) {
 
   return (
     <>
-      <div className="absolute right-4">
-        <button
-          type="button"
+      <div className="absolute bottom-4 right-4">
+        <PlusIcon
+          className="h-14 w-14 text-black bg-lime-400 p-2 rounded-[50%]"
           onClick={handleModal}
-          className="rounded-md bg-lime-600 px-4 py-2 text-sm font-medium text-white hover:bg-lime-400 "
-        >
-          Crear Nota
-        </button>
+        />
       </div>
 
       <Transition appear show={isOpen} as="div">
         {" "}
-        
-        <Dialog
-          as="div"
-          className="relative z-10"
-          onClose={handleModal}
-        >
+        <Dialog as="div" className="relative z-10" onClose={handleModal}>
           <Transition.Child
             as="div"
             enter="ease-out duration-300"
@@ -62,16 +55,12 @@ export default function MyModal(props: {title: string}) {
                     {props.title}
                   </Dialog.Title>
                   <div className="mt-2 w-96">
-                    <Form />
+                    <Form handleModal={handleModal}/>
                   </div>
 
                   <div className="absolute rounded-[50%] p-2 top-0 right-0">
-                    <button
-                      type="button"
-                      className=""
-                      onClick={handleModal}
-                    >
-                      <XCircleIcon className="w-7 h-7 text-black/50"/>
+                    <button type="button" className="" onClick={handleModal}>
+                      <XCircleIcon className="w-7 h-7 text-black/50" />
                     </button>
                   </div>
                 </Dialog.Panel>

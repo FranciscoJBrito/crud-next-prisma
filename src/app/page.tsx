@@ -1,25 +1,17 @@
-import { getNotes } from "@/http_func/getNotes";
+"use client";
+import NotesGrid from "@/components/NotesGrid/NotesGrid";
+import { useNotes } from "@/hooks/useNotes";
+import { useEffect } from "react";
 
-const HomePage = async () => {
-  const notes = await getNotes();
-  interface Note {
-    id: number;
-    title: string;
-    content: string;
-  }
-
-  
+const HomePage = () => {
+  const { notes, loadNotes } = useNotes();
+  useEffect(() => {
+    loadNotes();
+  }, []);
 
   return (
     <div>
-      <div>
-      </div>
-      {notes.map((note: Note) => (
-        <div key={note.id}>
-          <h2>{note.title}</h2>
-          <p>{note.content}</p>
-        </div>
-      ))}
+      <NotesGrid notes={notes} />
     </div>
   );
 };
