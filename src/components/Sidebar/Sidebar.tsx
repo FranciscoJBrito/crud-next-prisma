@@ -2,8 +2,8 @@
 import Link from "next/link";
 import {
   HomeIcon,
-  ListBulletIcon,
-  ChartPieIcon,
+  FolderIcon,
+  PresentationChartLineIcon,
 } from "@heroicons/react/20/solid";
 import { usePathname } from "next/navigation";
 
@@ -18,27 +18,27 @@ const Sidebar = () => {
     },
     {
       key: 2,
-      icon: <ListBulletIcon className="h-6 w-6" />,
-      link: "/list",
+      icon: <FolderIcon className="h-6 w-6" />,
+      link: "/projects",
     },
     {
       key: 3,
-      icon: <ChartPieIcon className="h-6 w-6" />,
+      icon: <PresentationChartLineIcon className="h-6 w-6" />,
       link: "/report",
     },
   ];
 
   return (
-    <div className="w-[90px] h-screen flex justify-end items-center py-3 px-2">
-      <div className="w-[80px] h-full flex flex-col justify-start items-center bg-black/90 py-4 border-r-[1px] border-white/10 rounded-2xl">
-        {navLinks.map(({ key, icon, link }) => (
+    <div className="w-[80px] h-screen flex justify-end items-center py-3 px-2 bg-custom-black border-r-[1px] border-white/10">
+      <div className="w-full h-full flex flex-col justify-start items-center py-4">
+        {navLinks.map(({ key, icon, link }) => ( 
           <Link
             key={key}
             href={link}
             className={
               pathname === link
-                ? " text-black bg-lime-400 transition-all ease-in-out p-3 rounded-[50%] active:bg-lime-400 mb-3"
-                : "text-white hover:bg-lime-400 transition-all ease-in-out p-3 rounded-[50%] hover:text-black mb-3"
+                ? " text-custom-black rounded-lg bg-lime-400 transition-all ease-in-out p-2  mb-3"
+                : "text-white hover:bg-lime-400 transition-all ease-in-out p-2 rounded-lg hover:text-custom-black mb-3"
             }
           >
             {icon}

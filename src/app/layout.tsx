@@ -24,7 +24,7 @@ export default function RootLayout({
           <Sidebar />
           <NotesProvider>
             <MyModal title="Crear nota" />
-            <div className="h-screen w-full p-4">
+            <div className="flex flex-col h-screen w-full pt-[18px] pb-9 px-8">
             {children}
             </div>
           </NotesProvider>
