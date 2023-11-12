@@ -23,7 +23,7 @@ model Board {
   project Project @relation(fields: [projectID], references: [id])
   projectID Int
   colums Colum[]
-}
+} 
 
 
 model Colum {

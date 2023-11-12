@@ -30,7 +30,16 @@ export async function POST(request: Request) {
       data: {
         title,
       },
+      include: {
+        board: true
+      }
     });
+    //Creando el tablero de manera conjunta con el proyecto
+    await prisma.board.create({
+      data: {
+        projectID: createdProject.id
+      }
+    })
     return NextResponse.json(createdProject);
   } catch (error) {
     return NextResponse.json(
