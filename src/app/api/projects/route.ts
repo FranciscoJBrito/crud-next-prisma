@@ -11,14 +11,16 @@ export async function GET() {
     );
     return NextResponse.json(allProjects);
   } catch (error) {
-    return NextResponse.json(
-      {
-        message: error,
-      },
-      {
-        status: 500,
-      }
-    );
+    if (error instanceof Error) {
+      return NextResponse.json(
+        {
+          message: error.message,
+        },
+        {
+          status: 500,
+        }
+      );
+    }
   }
 }
 
@@ -42,13 +44,15 @@ export async function POST(request: Request) {
     })
     return NextResponse.json(createdProject);
   } catch (error) {
-    return NextResponse.json(
-      {
-        message: error,
-      },
-      {
-        status: 500,
-      }
-    );
+    if (error instanceof Error) {
+      return NextResponse.json(
+        {
+          message: error.message,
+        },
+        {
+          status: 500,
+        }
+      );
+    }
   }
 }
