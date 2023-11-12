@@ -23,8 +23,10 @@ export default function RootLayout({
         <div className="flex">
           <Sidebar />
           <NotesProvider>
-          <MyModal title="Crear nota"/>
-          {children}
+            <MyModal title="Crear nota" />
+            <div className="h-screen w-full p-4">
+            {children}
+            </div>
           </NotesProvider>
         </div>
       </body>

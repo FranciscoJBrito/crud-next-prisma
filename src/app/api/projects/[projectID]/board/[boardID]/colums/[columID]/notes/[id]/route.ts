@@ -3,7 +3,7 @@ import { Prisma } from "@prisma/client";
 import { prisma } from "@/libs/prisma";
 
 interface Params {
-  params: { id: string };
+  params: { noteID: string };
 }
 
 //Funcion para las peticiones GET (obtene una nota)
@@ -11,7 +11,7 @@ export async function GET(request: Request, { params }: Params) {
   try {
     const note = await prisma.note.findFirst({
       where: {
-        id: Number(params.id),
+        id: Number(params.noteID),
       },
     });
 
@@ -47,7 +47,7 @@ export async function PUT(request: Request, { params }: Params) {
 
     const updatedNote = await prisma.note.update({
       where: {
-        id: Number(params.id),
+        id: Number(params.noteID),
       },
       data: {
         title,
@@ -89,7 +89,7 @@ export async function DELETE(request: Request, { params }: Params) {
   try {
     const deletedNote = await prisma.note.delete({
       where: {
-        id: Number(params.id),
+        id: Number(params.noteID),
       },
     });
 

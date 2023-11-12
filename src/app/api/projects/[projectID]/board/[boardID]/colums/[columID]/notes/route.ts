@@ -21,11 +21,12 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const { title, content } = await request.json();
+    const { title, content, columID } = await request.json();
     const newNote = await prisma.note.create({
       data: {
         title,
         content,
+        columID
       },
     });
 

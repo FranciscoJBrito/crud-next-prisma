@@ -10,7 +10,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div>
+    <div className="w-full h-full overflow-x-scroll">
       <NotesGrid notes={notes} />
     </div>
   );
