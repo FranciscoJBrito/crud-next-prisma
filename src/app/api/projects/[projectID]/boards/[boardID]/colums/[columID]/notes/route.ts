@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/libs/prisma";
 
+
+//Función para obtener las notas
 export async function GET() {
   try {
     const notes = await prisma.note.findMany();
@@ -19,6 +21,8 @@ export async function GET() {
   }
 }
 
+
+//Función para crear una nota
 export async function POST(request: Request) {
   try {
     const { title, content, columID } = await request.json();

@@ -1,15 +1,13 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/libs/prisma";
 
-interface Params {
-  params: { boardID: string };
-}
-
+//Función para obtener las columnas
 export async function GET() {
   try {
     const colums = await prisma.colum.findMany({
       include: {
-        notes: true,
+        board: true,
+        notes: true
       },
     });
     return NextResponse.json(colums);
@@ -27,12 +25,13 @@ export async function GET() {
   }
 }
 
-export async function POST(request: Request, { params }: Params) {
+//Función para crear una columna
+export async function POST(request: Request) {
   try {
-    const { title } = await request.json();
+    const { title, boardID } = await request.json();
     const createdColum = await prisma.colum.create({
       data: {
-        boardID: Number(params.boardID),
+        boardID,
         title,
       },
     });
