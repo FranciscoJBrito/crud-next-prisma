@@ -12,7 +12,7 @@ const TasksDropDown = () => {
     <div className="absolute top-4 right-2 w-56 text-right">
       <Menu as="div" className="relative inline-block text-left">
         <div>
-          <Menu.Button>
+          <Menu.Button className="focus:outline-none">
             <EllipsisVerticalIcon
               className="h-6 w-6 text-white/60 hover:border-[1px] border-custom-gray hover:rounded-[50%] hover:bg-white/10"
               aria-hidden="true"

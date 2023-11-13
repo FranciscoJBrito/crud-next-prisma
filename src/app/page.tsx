@@ -16,7 +16,7 @@ const HomePage = () => {
     <div className="flex flex-col w-full h-full">
       <NavBar />
       <div className="flex flex-grow justify-between">
-        <div className="flex flex-col mr-4">
+        <div className="flex flex-col w-full mr-4">
           <h2>Mis tareas</h2>
           <MyTasks />
         </div>
