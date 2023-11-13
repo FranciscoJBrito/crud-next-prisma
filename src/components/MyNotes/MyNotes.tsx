@@ -1,5 +1,4 @@
 import MyModal from "../Modal/Modal"
-import CreateNoteBtn from "../ui/CreateNoteBtn"
 
 const MyNotes = () => {
   return (

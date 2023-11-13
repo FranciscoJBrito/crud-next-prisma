@@ -14,7 +14,7 @@ export async function GET(request: Request, { params }: Params) {
       },
       include: {
         board: true,
-        notes: true,
+        tasks: true,
       },
     });
     return NextResponse.json(colum);

@@ -1,22 +1,19 @@
-import { prisma } from "@/libs/prisma";
 import { NextResponse } from "next/server";
+import { prisma } from "@/libs/prisma";
 
 interface Params {
-  params: { projectID: string };
+  params: { noteID: string };
 }
 
-//Función para obtener un proyecto
+//Función para obtener una nota
 export async function GET(request: Request, { params }: Params) {
   try {
-    const project = await prisma.project.findFirst({
+    const note = await prisma.note.findFirst({
       where: {
-        id: Number(params.projectID),
-      },
-      include: {
-        board: true,
+        id: Number(params.noteID),
       },
     });
-    return NextResponse.json(project);
+    return NextResponse.json(note);
   } catch (error) {
     if (error instanceof Error) {
       return NextResponse.json(
@@ -31,19 +28,20 @@ export async function GET(request: Request, { params }: Params) {
   }
 }
 
-//Función para actualizar un proyecto
+//Función para actualizar una nota
 export async function PUT(request: Request, { params }: Params) {
   try {
-    const { title } = await request.json();
-    const editedProject = await prisma.project.update({
+    const { title, content } = await request.json();
+    const updatedNote = await prisma.note.update({
+      where: {
+        id: Number(params.noteID),
+      },
       data: {
         title,
-      },
-      where: {
-        id: Number(params.projectID),
+        content,
       },
     });
-    return NextResponse.json(editedProject);
+    return NextResponse.json(updatedNote);
   } catch (error) {
     if (error instanceof Error) {
       return NextResponse.json(
@@ -58,20 +56,15 @@ export async function PUT(request: Request, { params }: Params) {
   }
 }
 
-//Función para eliminar un proyecto
+//Función para eliminar una nota
 export async function DELETE(request: Request, { params }: Params) {
   try {
-    await prisma.board.deleteMany({
+    const deletedNote = await prisma.note.delete({
       where: {
-        projectID: Number(params.projectID)
-      }
-    })
-    const deletedProject = await prisma.project.delete({
-      where: {
-        id: Number(params.projectID),
+        id: Number(params.noteID),
       },
     });
-    return NextResponse.json(deletedProject);
+    return NextResponse.json(deletedNote);
   } catch (error) {
     if (error instanceof Error) {
       return NextResponse.json(

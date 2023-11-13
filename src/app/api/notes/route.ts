@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/libs/prisma";
 
-
-//Función para obtener las notas
+//Función para obtener todas las notas
 export async function GET() {
   try {
     const notes = await prisma.note.findMany();
@@ -21,20 +20,17 @@ export async function GET() {
   }
 }
 
-
 //Función para crear una nota
 export async function POST(request: Request) {
   try {
-    const { title, content, columID } = await request.json();
-    const newNote = await prisma.note.create({
+    const { title, content } = await request.json();
+    const createdNote = await prisma.note.create({
       data: {
         title,
         content,
-        columID
       },
     });
-
-    return NextResponse.json(newNote);
+    return NextResponse.json(createdNote);
   } catch (error) {
     if (error instanceof Error) {
       return NextResponse.json(

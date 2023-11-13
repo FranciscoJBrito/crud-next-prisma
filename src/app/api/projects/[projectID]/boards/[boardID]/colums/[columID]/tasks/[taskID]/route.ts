@@ -3,15 +3,15 @@ import { Prisma } from "@prisma/client";
 import { prisma } from "@/libs/prisma";
 
 interface Params {
-  params: { noteID: string };
+  params: { taskID: string };
 }
 
-//Funcion para las peticiones GET (obtene una nota)
+//Función para las peticiones GET (obtener una nota)
 export async function GET(request: Request, { params }: Params) {
   try {
-    const note = await prisma.note.findFirst({
+    const note = await prisma.task.findFirst({
       where: {
-        id: Number(params.noteID),
+        id: Number(params.taskID),
       },
     });
 
@@ -40,23 +40,25 @@ export async function GET(request: Request, { params }: Params) {
   }
 }
 
-// Funcion para las peticiones PUT (actualizar una nota)
+// Función para las peticiones PUT (actualizar una nota)
 export async function PUT(request: Request, { params }: Params) {
   try {
-    const { title, content } = await request.json();
+    const { title, description, priority, status } = await request.json();
 
-    const updatedNote = await prisma.note.update({
+    const updatedNote = await prisma.task.update({
       where: {
-        id: Number(params.noteID),
+        id: Number(params.taskID),
       },
       data: {
         title,
-        content,
+        description,
+        priority,
+        status,
       },
     });
 
-/*     if (!updatedNote)
-      return NextResponse.json({ message: "Nota not found" }, { status: 404 }); */
+    if (!updatedNote)
+      return NextResponse.json({ message: "Nota not found" }, { status: 404 });
 
     return NextResponse.json(updatedNote);
   } catch (error) {
@@ -64,7 +66,7 @@ export async function PUT(request: Request, { params }: Params) {
       if (error.code === "P2025") {
         return NextResponse.json(
           {
-            message: 'Note not found',
+            message: "Note not found",
           },
           {
             status: 404,
@@ -84,12 +86,12 @@ export async function PUT(request: Request, { params }: Params) {
   }
 }
 
-//Funcion para las peticiones DELTE (eliminar una nota)
+//Función para las peticiones DELETE (eliminar una nota)
 export async function DELETE(request: Request, { params }: Params) {
   try {
-    const deletedNote = await prisma.note.delete({
+    const deletedNote = await prisma.task.delete({
       where: {
-        id: Number(params.noteID),
+        id: Number(params.taskID),
       },
     });
 
