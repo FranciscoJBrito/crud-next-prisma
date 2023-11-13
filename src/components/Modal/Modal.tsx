@@ -4,6 +4,7 @@ import { useState } from "react";
 import { XCircleIcon } from "@heroicons/react/24/outline";
 import Form from "../ui/Form";
 import { PlusIcon } from "@heroicons/react/20/solid";
+import CreateNoteBtn from "../ui/CreateNoteBtn";
 
 export default function MyModal(props: { title: string }) {
   //Handle Modal
@@ -14,11 +15,13 @@ export default function MyModal(props: { title: string }) {
 
   return (
     <>
-      <div className="absolute bottom-4 right-4">
-        <PlusIcon
-          className="h-14 w-14 text-black bg-lime-400 p-2 rounded-[50%]"
+      <div className="">
+        <button
+          className="w-full h-full border-[1px] border-custom-gray border-dashed text-custom-gray rounded-lg hover:bg-custom-gray/10 hover:text-white/20 hover:border-white/20"
           onClick={handleModal}
-        />
+        >
+          Nueva nota +
+        </button>
       </div>
 
       <Transition appear show={isOpen} as="div">
@@ -55,7 +58,7 @@ export default function MyModal(props: { title: string }) {
                     {props.title}
                   </Dialog.Title>
                   <div className="mt-2 w-96">
-                    <Form handleModal={handleModal}/>
+                    <Form handleModal={handleModal} />
                   </div>
 
                   <div className="absolute rounded-[50%] p-2 top-0 right-0">
