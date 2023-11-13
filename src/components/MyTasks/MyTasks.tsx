@@ -14,7 +14,7 @@ const MyTasks = () => {
                   className="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700"
                 />
                 <button className="flex items-center gap-x-2">
-                  <span>Invoice</span>
+                  <span>Tarea</span>
 
                   <svg
                     className="h-3"
@@ -49,32 +49,28 @@ const MyTasks = () => {
               scope="col"
               className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
             >
-              Date
+              Vencimiento
             </th>
 
             <th
               scope="col"
               className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
             >
-              Status
+              Estatus
             </th>
 
             <th
               scope="col"
               className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
             >
-              Customer
+              Proyecto
             </th>
 
             <th
               scope="col"
               className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
             >
-              Purchase
-            </th>
-
-            <th scope="col" className="relative py-3.5 px-4">
-              <span className="sr-only">Actions</span>
+              Acciones
             </th>
           </tr>
         </thead>
@@ -91,10 +87,10 @@ const MyTasks = () => {
               </div>
             </td>
             <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-              Jan 6, 2022
+              Jan 6, 2023
             </td>
-            <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-              <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-emerald-500 bg-emerald-100/60 dark:bg-gray-800">
+            <td className="px-4 py-2 text-sm font-medium text-gray-700 whitespace-nowrap">
+              <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-emerald-500 bg-emerald-500/40">
                 <svg
                   width="12"
                   height="12"
@@ -111,8 +107,11 @@ const MyTasks = () => {
                   />
                 </svg>
 
-                <h2 className="text-sm font-normal">Paid</h2>
+                <p className="text-sm font-normal">Completada</p>
               </div>
+            </td>
+            <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
+              Proyecto N1
             </td>
           </tr>
         </tbody>
