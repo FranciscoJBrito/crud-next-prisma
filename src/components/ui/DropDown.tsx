@@ -11,12 +11,12 @@ interface Props {
 export const DropDown = ({id}: NoteID) => {
   const { deleteNote } = useNotes();
   return (
-    <div className="absolute top-2 right-1 w-56 text-right">
+    <div className="absolute top-4 right-2 w-56 text-right">
       <Menu as="div" className="relative inline-block text-left">
         <div>
           <Menu.Button>
             <EllipsisVerticalIcon
-              className="h-6 w-6 text-black/60 hover:border-[1px] border-black/10 hover:rounded-[50%] hover:bg-black/5"
+              className="h-6 w-6 text-white/60 hover:border-[1px] border-custom-gray hover:rounded-[50%] hover:bg-white/10"
               aria-hidden="true"
             />
           </Menu.Button>

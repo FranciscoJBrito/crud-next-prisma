@@ -1,3 +1,5 @@
+import TableRow from "../ui/TableRow";
+
 const MyTasks = () => {
   return (
     <div className="w-full h-full border-[1px] border-custom-gray rounded-lg overflow-scroll mr-4">
@@ -75,45 +77,8 @@ const MyTasks = () => {
           </tr>
         </thead>
         <tbody className="bg-transparent">
-          <tr>
-            <td className="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
-              <div className="inline-flex items-center gap-x-3">
-                <input
-                  type="checkbox"
-                  className="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700"
-                />
-
-                <span>#3066</span>
-              </div>
-            </td>
-            <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-              Jan 6, 2023
-            </td>
-            <td className="px-4 py-2 text-sm font-medium text-gray-700 whitespace-nowrap">
-              <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-emerald-500 bg-emerald-500/40">
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 12 12"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M10 3L4.5 8.5L2 6"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-
-                <p className="text-sm font-normal">Completada</p>
-              </div>
-            </td>
-            <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-              Proyecto N1
-            </td>
-          </tr>
+          <TableRow task="Tarea N1" due="2 de diciembre" status="En espera" project="Proyecto N2"/>
+          <TableRow task="Tarea N2" due="6 de diciembre" status="En progreso" project="Proyecto N3"/>
         </tbody>
       </table>
     </div>
