@@ -1,22 +1,18 @@
-import { DropDown } from "./DropDown";
+import TasksDropDown from "./TasksDropDown";
 
 interface Props {
       task: string,
       due: number | string,
       status: string,
-      project: string
+      project: string,
+      priority: string
 }
 
-const TableRow = ({task, due, status, project}: Props) => {
+const TableRow = ({task, due, status, project, priority}: Props) => {
   return (
     <tr className="py-4 border-[1px] border-custom-gray w-full">
       <td className="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
         <div className="inline-flex items-center gap-x-3">
-          <input
-            type="checkbox"
-            className="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700"
-          />
-
           <span>{task}</span>
         </div>
       </td>
@@ -48,7 +44,10 @@ const TableRow = ({task, due, status, project}: Props) => {
         {project}
       </td>
       <td className="relative px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-        <DropDown id={1} columID={1}/>
+        {priority}
+      </td>
+      <td className="relative px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
+        <TasksDropDown />
       </td>
     </tr>
   );

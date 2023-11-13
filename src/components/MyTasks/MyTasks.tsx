@@ -2,7 +2,7 @@ import TableRow from "../ui/TableRow";
 
 const MyTasks = () => {
   return (
-    <div className="w-full h-full border-[1px] border-custom-gray rounded-lg overflow-scroll mr-4">
+    <div className="w-full h-full border-[1px] border-custom-gray rounded-lg overflow-scroll">
       <table className="min-w-full divide-y divide-custom-gray">
         <thead className="bg-custom-gray/20">
           <tr>
@@ -11,10 +11,6 @@ const MyTasks = () => {
               className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
             >
               <div className="flex items-center gap-x-3">
-                <input
-                  type="checkbox"
-                  className="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700"
-                />
                 <button className="flex items-center gap-x-2">
                   <span>Tarea</span>
 
@@ -72,13 +68,18 @@ const MyTasks = () => {
               scope="col"
               className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
             >
-              Acciones
+              Prioridad
+            </th>
+            <th
+              scope="col"
+              className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
+            >
             </th>
           </tr>
         </thead>
         <tbody className="bg-transparent">
-          <TableRow task="Tarea N1" due="2 de diciembre" status="En espera" project="Proyecto N2"/>
-          <TableRow task="Tarea N2" due="6 de diciembre" status="En progreso" project="Proyecto N3"/>
+          <TableRow task="Tarea N1" due="2 de diciembre" status="En espera" project="Proyecto N2" priority="Alta"/>
+          <TableRow task="Tarea N2" due="6 de diciembre" status="En progreso" project="Proyecto N3" priority="Media"/>
         </tbody>
       </table>
     </div>

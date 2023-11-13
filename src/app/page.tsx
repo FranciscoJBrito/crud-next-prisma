@@ -15,10 +15,15 @@ const HomePage = () => {
   return (
     <div className="flex flex-col w-full h-full">
       <NavBar />
-      <h2>Mis tareas</h2>
-      <div className="flex-grow flex justify-between">
+      <div className="flex flex-grow justify-between">
+        <div className="flex flex-col mr-4">
+          <h2>Mis tareas</h2>
           <MyTasks />
+        </div>
+        <div className="flex flex-col w-full ml-4">
+          <h2>Mis Notas</h2>
           <MyNotes />
+        </div>
       </div>
       {/* <NotesGrid notes={notes} /> */}
     </div>

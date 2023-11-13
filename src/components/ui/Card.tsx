@@ -1,6 +1,6 @@
 'use client'
 import { useState } from "react"
-import { DropDown } from "./DropDown"
+import { NotesDropDown } from "./NotesDropDown"
 import { NoteContent } from "@/interfaces/Note"
 import {useSortable} from '@dnd-kit/sortable';
 import {CSS} from '@dnd-kit/utilities';
@@ -29,7 +29,7 @@ const Card = (props: NoteContent) => {
   return (
     <div ref={setNodeRef} style={style} {...attributes} {...listeners} className="bordr-[1px] border-blck/10 w-full h-full bg-white border-[1px] broder-cream/10 p-3 rounded-lg relative">
       <div className="z-50">
-      <DropDown id={props.id}/>
+      <NotesDropDown id={props.id}/>
       </div>
       <h3 className="text-lg font-semibold text-black/80">{props.title}</h3>
       <p className="text-black/60">{props.content}</p>
