@@ -22,16 +22,16 @@ export const NoteContext = createContext<{
 export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
   const [notes, setNotes] = useState<Note[]>([]);
 
-  //Funcion para cargar las notas
+  //Función para cargar las notas
   const loadNotes = async () => {
-    const res = await fetch("/api/colums");
+    const res = await fetch("/api/notes");
     const data = await res.json();
     setNotes(data);
   };
 
-  //Funcion para crear  notas
-  const createNote = async (colum: GetColum, note: CreateNote) => {
-    const res = await fetch(`/api/colums/${colum.id}/notes`, {
+  //Función para crear  notas
+  const createNote = async (note: CreateNote) => {
+    const res = await fetch(`/api/notes`, {
       method: "POST",
       body: JSON.stringify(note),
       headers: {
@@ -42,7 +42,7 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
     setNotes([...notes, newNote]);
   };
 
-  //Funcion para borrar una nota
+  //Función para borrar una nota
   const deleteNote = async (id: number | undefined) => {
     const res = await fetch(`api/notes/${id}`, {
       method: 'DELETE',
@@ -52,7 +52,7 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
 
   }
 
-  //Funcion para actualizar una notas
+  //Función para actualizar una notas
   const updateNote = async (id: number | undefined) => {
     const res = await fetch(`api/notes/${id}`, {
       method: 'PUT',
@@ -61,7 +61,7 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
     setNotes(notes.filter(note => note.id != id))
   }
 
-  //Funcion para manejar el drag and drop
+  //Función para manejar el drag and drop
   function handleDragEnd(event: any) {
     const {active, over} = event;
     
