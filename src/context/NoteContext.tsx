@@ -1,22 +1,19 @@
 "use client";
 import { createContext, useState } from "react";
-import {CreateNote, GetColum} from "@/interfaces/Note"
+import {CreateNote} from "@/interfaces/Note"
 import { Note } from "@prisma/client";
-import { arrayMove } from "@dnd-kit/sortable";
 
 
 export const NoteContext = createContext<{
   notes: Note[];
   loadNotes: () => Promise<void>;
   createNote: (note: CreateNote) => Promise<void>;
-  deleteNote: (id: number | undefined) => Promise<void>;
-  handleDragEnd: (event: any) => void
+  deleteNote: (noteID: number | string) => Promise<void>;
 }>({
   notes: [],
   loadNotes: async () => {},
   createNote: async (note: CreateNote) => {},
-  deleteNote: async (id: number | undefined) => {},
-  handleDragEnd: (event: any) => {}
+  deleteNote: async (noteID: number | string) => {},
 });
 
 export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
@@ -43,13 +40,12 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   //Función para borrar una nota
-  const deleteNote = async (id: number | undefined) => {
-    const res = await fetch(`api/notes/${id}`, {
+  const deleteNote = async (noteID: number | string) => {
+    const res = await fetch('/api/notes/' + noteID ,{
       method: 'DELETE',
     })
     const data = await res.json()
-    setNotes(notes.filter(note => note.id != id))
-
+    setNotes(notes.filter(note => note.id != noteID))
   }
 
   //Función para actualizar una notas
@@ -61,23 +57,9 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
     setNotes(notes.filter(note => note.id != id))
   }
 
-  //Función para manejar el drag and drop
-  function handleDragEnd(event: any) {
-    const {active, over} = event;
-    
-    if (active.id !== over.id) {
-      setNotes((items) => {
-        const oldIndex = items.indexOf(active.id);
-        const newIndex = items.indexOf(over.id);
-        
-        return arrayMove(items, oldIndex, newIndex);
-      });
-    }
-  }
-
 
   return (
-    <NoteContext.Provider value={{ notes, loadNotes, createNote, deleteNote, handleDragEnd }}>
+    <NoteContext.Provider value={{ notes, loadNotes, createNote, deleteNote}}>
       {children}
     </NoteContext.Provider>
   );

@@ -7,7 +7,7 @@ export async function GET() {
     const colums = await prisma.colum.findMany({
       include: {
         board: true,
-        notes: true
+        tasks: true
       },
     });
     return NextResponse.json(colums);

@@ -172,7 +172,7 @@ function EditInactiveIcon(props: Props) {
     >
       <path
         d="M4 13V16H7L16 7L13 4L4 13Z"
-        fill="#ECFCCB"
+        fill="transparent"
         stroke="#A3E635"
         strokeWidth="2"
       />
@@ -208,13 +208,13 @@ function DuplicateInactiveIcon(props: Props) {
     >
       <path
         d="M4 4H12V12H4V4Z"
-        fill="#ECFCCB"
+        fill="transparent"
         stroke="#A3E635"
         strokeWidth="2"
       />
       <path
         d="M8 8H16V16H8V8Z"
-        fill="#ECFCCB"
+        fill="#A3E635"
         stroke="#A3E635"
         strokeWidth="2"
       />
@@ -259,7 +259,7 @@ function ArchiveInactiveIcon(props: Props) {
         y="8"
         width="10"
         height="8"
-        fill="#ECFCCB"
+        fill="transparent"
         stroke="#A3E635"
         strokeWidth="2"
       />
@@ -268,7 +268,7 @@ function ArchiveInactiveIcon(props: Props) {
         y="4"
         width="12"
         height="4"
-        fill="#ECFCCB"
+        fill="transparent"
         stroke="#A3E635"
         strokeWidth="2"
       />
@@ -351,7 +351,7 @@ function DeleteInactiveIcon(props: Props) {
         y="6"
         width="10"
         height="10"
-        fill="#ECFCCB"
+        fill="transparent"
         stroke="#A3E635"
         strokeWidth="2"
       />

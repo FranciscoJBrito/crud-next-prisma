@@ -3,7 +3,7 @@ import { Prisma } from "@prisma/client";
 import { prisma } from "@/libs/prisma";
 
 interface Params {
-  params: { taskID: string };
+  params: { id: string };
 }
 
 //Función para las peticiones GET (obtener una nota)
@@ -11,11 +11,11 @@ export async function GET(request: Request, { params }: Params) {
   try {
     const note = await prisma.task.findFirst({
       where: {
-        id: Number(params.taskID),
+        id: Number(params.id),
       },
     });
 
-    if (!note)
+    /* if (!note)
       return NextResponse.json(
         {
           message: "Nota not found",
@@ -23,7 +23,7 @@ export async function GET(request: Request, { params }: Params) {
         {
           status: 404,
         }
-      );
+      ); */
 
     return NextResponse.json(note);
   } catch (error) {
@@ -47,7 +47,7 @@ export async function PUT(request: Request, { params }: Params) {
 
     const updatedNote = await prisma.task.update({
       where: {
-        id: Number(params.taskID),
+        id: Number(params.id),
       },
       data: {
         title,
@@ -91,12 +91,12 @@ export async function DELETE(request: Request, { params }: Params) {
   try {
     const deletedNote = await prisma.task.delete({
       where: {
-        id: Number(params.taskID),
+        id: Number(params.id), 
       },
     });
 
-    if (!deletedNote)
-      return NextResponse.json({ message: "Note not found" }, { status: 404 });
+    /* if (!deletedNote)
+      return NextResponse.json({ message: "Note not found" }, { status: 404 }); */
 
     return NextResponse.json(deletedNote);
   } catch (error) {
