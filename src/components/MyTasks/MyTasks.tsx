@@ -2,7 +2,7 @@ import TableRow from "../ui/TableRow";
 
 const MyTasks = () => {
   return (
-    <div className="w-full h-full border-[1px] border-custom-gray rounded-lg overflow-scroll">
+    <div className="w-full h-full border-[1px] border-custom-gray bg-custom-black rounded-lg overflow-scroll">
       <table className="min-w-full divide-y divide-custom-gray">
         <thead className="bg-custom-gray/20">
           <tr>

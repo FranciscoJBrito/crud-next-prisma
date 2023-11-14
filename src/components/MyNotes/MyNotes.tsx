@@ -9,7 +9,7 @@ const MyNotes = () => {
     loadNotes();
   }, []);
   return (
-    <div className="w-full h-full border-[1px] border-custom-gray rounded-lg p-4 overflow-scroll">
+    <div className="w-full h-full border-[1px] border-custom-gray bg-custom-black rounded-lg p-4 overflow-scroll">
       <MyModal title="Crear Nota" />
       {notes.map((note) => {
         return <Note key={note.id} id={note.id} title={note.title} content={note.content} />;

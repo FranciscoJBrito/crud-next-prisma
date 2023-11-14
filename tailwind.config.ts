@@ -16,6 +16,8 @@ const config: Config = {
       colors: {
         'cream': '#F6F6F4',
         'custom-black': '#171717',
+        'custom-second-black': '#232323',
+        'custom-deep-black': '#131313',
         'custom-gray': '#2A2B2B'
       }
     },
