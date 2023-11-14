@@ -15,7 +15,7 @@ export default function MyModal(props: { title: string }) {
     <>
       <div className="">
         <button
-          className="w-full h-28 border-[1px] border-custom-gray border-dashed text-custom-gray rounded-lg hover:bg-custom-gray/10 hover:text-white/20 hover:border-white/20"
+          className="w-full h-16 border-[1px] border-custom-gray border-dashed text-custom-gray rounded-lg hover:bg-custom-gray/10 hover:text-white/20 hover:border-white/20"
           onClick={handleModal}
         >
           Nueva nota +
