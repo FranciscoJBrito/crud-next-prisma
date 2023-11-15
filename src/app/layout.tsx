@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import { NotesProvider } from "@/context/NoteContext";
+import { GlobalProvider } from "@/context/TasksContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,11 +22,13 @@ export default function RootLayout({
       <body className={inter.className}>
         <div className="flex">
           <Sidebar />
-          <NotesProvider>
-            <div className="flex flex-col h-screen w-full pt-[18px] pb-9 px-8">
-            {children}
-            </div>
-          </NotesProvider>
+          <GlobalProvider>
+            <NotesProvider>
+              <div className="flex flex-col h-screen w-full pt-[18px] pb-9 px-8">
+                {children}
+              </div>
+            </NotesProvider>
+          </GlobalProvider>
         </div>
       </body>
     </html>
