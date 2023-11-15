@@ -34,7 +34,7 @@ const Form = ({handleModal}: {handleModal: any}) => {
         name="title"
         id="title"
         placeholder="Titulo de la nota"
-        className="block w-full flex-1 border-[1px] border-custom-gray rounded-lg bg-transparent py-1.5 px-2 my-2 text-white placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+        className="block w-full flex-1 border-[1px] border-custom-gray rounded-lg bg-transparent py-1.5 px-2 my-2 text-white placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 focus:outline-none"
         onChange={(e) => setTitle(e.target.value)}
       />
 
@@ -50,7 +50,7 @@ const Form = ({handleModal}: {handleModal: any}) => {
         name="content"
         id="content"
         placeholder="Contenido de la nota"
-        className="block w-full flex-1 border-[1px] rounded-lg border-custom-gray bg-transparent py-1.5 pl-1 my-2 text-white placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+        className="block w-full flex-1 border-[1px] rounded-lg border-custom-gray bg-transparent py-1.5 pl-1 my-2 text-white placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 focus:outline-none"
         onChange={(e) => setContent(e.target.value)}
       />
 

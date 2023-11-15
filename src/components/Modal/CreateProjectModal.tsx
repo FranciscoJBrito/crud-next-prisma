@@ -1,10 +1,9 @@
 "use client";
+import { useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import React, { useState } from "react";
 import { XCircleIcon } from "@heroicons/react/24/outline";
-import Form from "../ui/Form";
 
-export default function MyModal(props: { title: string }) {
+const CreateProjectModal = () => {
   //Handle Modal
   let [isOpen, setIsOpen] = useState(false);
   const handleModal = () => {
@@ -14,12 +13,11 @@ export default function MyModal(props: { title: string }) {
   return (
     <>
       <div className="">
-        
         <button
-          className="w-full h-16 border-[1px] border-custom-gray border-dashed text-custom-gray rounded-lg hover:bg-custom-gray/10 hover:text-white/20 hover:border-white/20"
+          className="w-60 h-48 border-[1px] border-custom-gray border-dashed text-custom-gray rounded-lg hover:bg-custom-gray/10 hover:text-white/20 hover:border-white/20"
           onClick={handleModal}
         >
-          Nueva nota +
+          Nuevo Proyecto +
         </button>
       </div>
 
@@ -54,11 +52,20 @@ export default function MyModal(props: { title: string }) {
                     as="h3"
                     className="text-lg font-medium leading-6 text-white"
                   >
-                    {props.title}
+                    Nombre del proyecto
                   </Dialog.Title>
                   <div className="mt-2 w-96">
-                    <Form handleModal={handleModal} />
+                    <form>
+                      <input
+                        id="title"
+                        name="title"
+                        type="text"
+                        autoFocus={false}
+                        className="block w-full flex-1 border-[1px] border-custom-gray rounded-lg bg-transparent py-1.5 px-2 my-2 text-white placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 focus:outline-none"
+                      />
+                    </form>
                   </div>
+
                   <div className="absolute rounded-[50%] p-2 top-0 right-0">
                     <button type="button" className="" onClick={handleModal}>
                       <XCircleIcon className="w-7 h-7 text-custom-gray" />
@@ -72,4 +79,6 @@ export default function MyModal(props: { title: string }) {
       </Transition>
     </>
   );
-}
+};
+
+export default CreateProjectModal;
