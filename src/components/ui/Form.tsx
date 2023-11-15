@@ -55,7 +55,7 @@ const Form = ({handleModal}: {handleModal: any}) => {
       />
 
       {/*Botón para crear nota*/}
-      <button className="mt-4 bg-lime-400 py-2 rounded-lg w-full text-white cursor-pointer">
+      <button type="submit" className="mt-4 bg-lime-400 py-2 rounded-lg w-full text-custom-gray font-medium cursor-pointer">
         Crear
       </button>
     </form>

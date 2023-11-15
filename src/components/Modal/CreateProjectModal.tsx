@@ -63,6 +63,12 @@ const CreateProjectModal = () => {
                         autoFocus={false}
                         className="block w-full flex-1 border-[1px] border-custom-gray rounded-lg bg-transparent py-1.5 px-2 my-2 text-white placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 focus:outline-none"
                       />
+                      <button
+                        type="submit"
+                        className="mt-4 bg-lime-400 py-2 rounded-lg w-full text-custom-gray font-medium cursor-pointer"
+                      >
+                        Crear proyecto
+                      </button>
                     </form>
                   </div>
 
