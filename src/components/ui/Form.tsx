@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNotes } from "@/hooks/useNotes";
+import Tiptap from "./TextEditor";
 
 const Form = ({handleModal}: {handleModal: any}) => {
   const [title, setTitle] = useState("");
@@ -44,6 +45,7 @@ const Form = ({handleModal}: {handleModal: any}) => {
       >
         Contenido de la nota
       </label>
+      <Tiptap />
       <textarea
         name="content"
         id="content"
@@ -52,7 +54,7 @@ const Form = ({handleModal}: {handleModal: any}) => {
         onChange={(e) => setContent(e.target.value)}
       />
 
-      {/*Boton para crear nota*/}
+      {/*Botón para crear nota*/}
       <button className="mt-4 bg-lime-400 py-2 rounded-lg w-full text-white cursor-pointer">
         Crear
       </button>

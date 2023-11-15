@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import {
   HomeIcon,
   FolderIcon,
@@ -29,8 +30,11 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="w-[80px] h-screen flex justify-end items-center py-3 px-2 bg-custom-black border-r-[1px] border-white/10">
-      <div className="w-full h-full flex flex-col justify-start items-center py-4">
+    <div className="w-[80px] h-screen flex justify-end items-center pb-3 bg-custom-black border-r-[1px] border-white/10">
+      <div className="w-full h-full flex flex-col justify-start items-center pb-4">
+        <div className="flex justify-center items-center w-full h-[75px] bg-custom-deep-black mb-4 border-b-[1px] border-custom-gray hover:shadow-custom-inner hover:shadow-lime-400 transition-all ">
+        <Image src="/limetasklogo.png" width={30} height={30} alt="Logo limetask"/>
+        </div>
         {navLinks.map(({ key, icon, link }) => ( 
           <Link
             key={key}
