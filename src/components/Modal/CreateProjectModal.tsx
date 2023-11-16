@@ -22,7 +22,7 @@ const CreateProjectModal = () => {
     <>
       <div className="">
         <button
-          className="w-60 h-48 border-[1px] ml-4 border-custom-gray border-dashed text-custom-gray rounded-lg hover:bg-custom-gray/10 hover:text-white/20 hover:border-white/20"
+          className="w-60 h-48 border-[1px] border-custom-gray border-dashed text-custom-gray rounded-lg hover:bg-custom-gray/10 hover:text-white/20 hover:border-white/20"
           onClick={handleModal}
         >
           Nuevo Proyecto +

@@ -17,7 +17,7 @@ const Projects = () => {
     <div>
       <NavBar />
       <h2>Proyectos</h2>
-      <div className="w-full flex">
+      <div className="w-full grid grid-cols-5 gap-4">
         <UpgradeCard />
         {
           projects.map(project => (
