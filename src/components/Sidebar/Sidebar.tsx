@@ -10,6 +10,8 @@ import { usePathname } from "next/navigation";
 
 const Sidebar = () => {
   const pathname = usePathname();
+  const projectsDynamicRoute = /projects/
+  const validateDynamicRoute = projectsDynamicRoute.test(pathname)
 
   const navLinks = [
     {
@@ -40,7 +42,7 @@ const Sidebar = () => {
             key={key}
             href={link}
             className={
-              pathname === link
+              pathname === link || link == "/projects" && validateDynamicRoute
                 ? " text-custom-black rounded-lg bg-lime-400 transition-all ease-in-out p-2  mb-3"
                 : "text-white hover:bg-lime-400 transition-all ease-in-out p-2 rounded-lg hover:text-custom-black mb-3"
             }
