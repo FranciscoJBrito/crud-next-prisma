@@ -13,7 +13,6 @@ const Form = ({handleModal}: {handleModal: any}) => {
       className="w-full flex flex-col items-start justify-center"
       onSubmit={async (e) => {
         e.preventDefault();
-        console.log(title, content)
         await createNote({ 
           title, 
           content 

@@ -2,19 +2,27 @@
 import { useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XCircleIcon } from "@heroicons/react/24/outline";
+import { useGlobalContext } from "@/hooks/useGlobalContext";
+
 
 const CreateProjectModal = () => {
+  //Input store value
+  let [title, setTitle] = useState("");
+
   //Handle Modal
   let [isOpen, setIsOpen] = useState(false);
   const handleModal = () => {
     setIsOpen(!isOpen);
   };
 
+  //Context
+  const {createProject} = useGlobalContext();
+
   return (
     <>
       <div className="">
         <button
-          className="w-60 h-48 border-[1px] border-custom-gray border-dashed text-custom-gray rounded-lg hover:bg-custom-gray/10 hover:text-white/20 hover:border-white/20"
+          className="w-60 h-48 border-[1px] ml-4 border-custom-gray border-dashed text-custom-gray rounded-lg hover:bg-custom-gray/10 hover:text-white/20 hover:border-white/20"
           onClick={handleModal}
         >
           Nuevo Proyecto +
@@ -55,13 +63,22 @@ const CreateProjectModal = () => {
                     Nombre del proyecto
                   </Dialog.Title>
                   <div className="mt-2 w-96">
-                    <form>
+                    <form
+                      onSubmit={async (e) => {
+                        e.preventDefault();
+                        await createProject({
+                          title,
+                        });
+                        handleModal();
+                      }}
+                    >
                       <input
                         id="title"
                         name="title"
                         type="text"
                         autoFocus={false}
                         className="block w-full flex-1 border-[1px] border-custom-gray rounded-lg bg-transparent py-1.5 px-2 my-2 text-white placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 focus:outline-none"
+                        onChange={(e) => setTitle(e.target.value)}
                       />
                       <button
                         type="submit"

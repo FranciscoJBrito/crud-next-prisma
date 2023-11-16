@@ -21,7 +21,7 @@ const Projects = () => {
         <UpgradeCard />
         {
           projects.map(project => (
-            <ProjectCard key={project.id} title={project.title}/>
+            <ProjectCard key={project.id} id={project.id} title={project.title}/>
           ))
         }
         <CreateProject />
