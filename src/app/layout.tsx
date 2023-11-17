@@ -8,8 +8,8 @@ import { GlobalProvider } from "@/context/GlobalContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Notes App",
-  description: "Register your notes",
+  title: "Limetask",
+  description: "Project Managment App",
 };
 
 export default function RootLayout({

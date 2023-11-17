@@ -1,7 +1,8 @@
 {
-  "name": "nextjs-prisma-crud",
+  "name": "limetask-app",
   "version": "0.1.0",
   "private": true,
+  "author": "Francisco Javier Brito",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
