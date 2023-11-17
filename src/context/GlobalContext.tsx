@@ -2,19 +2,22 @@
 import { createContext, useState } from "react";
 import { Project, Colum } from "@prisma/client";
 import { CreateProject } from "@/interfaces/Project";
+import { CreateColum } from "@/interfaces/Colum";
 
 export const GlobalContext = createContext<{
   projects: Project[];
   loadProjects: () => Promise<void>;
   createProject: (project: CreateProject) => Promise<void>;
   colums: Colum[];
-  loadColums: (id: string |number) => Promise<void>
+  loadColums: (id: string |number) => Promise<void>;
+  createColum: (colum: CreateColum) => Promise<void>;
 }>({
   projects: [],
   loadProjects: async () => {},
   createProject: async (project: CreateProject) => {},
   colums: [],
   loadColums: async (id: string | number) => {},
+  createColum: async (colum: CreateColum) => {},
 });
 
 export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
@@ -46,14 +49,31 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
 
 
   //FUNCIONES DE COLUMNAS
+
+  //Función para cargar las columnas
   const loadColums = async (id: number | string) => {
     const res = await fetch(`/api/projects/${id}`)
     const data = await res.json()
-    setProjects(data);
+    setColums(data.colums);
   }
 
+  //Función para crear una columna
+  const createColum = async (colum: CreateColum) => {
+    const res = await fetch(`/api/projects/${colum.projectID}/colums`, {
+      method: "POST",
+      body: JSON.stringify(colum.title),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const newColum = await res.json()
+    setColums([...colums, newColum])
+  }
+
+
+
   return (
-    <GlobalContext.Provider value={{ projects, loadProjects, createProject, colums, loadColums }}>
+    <GlobalContext.Provider value={{ projects, loadProjects, createProject, colums, loadColums, createColum }}>
       {children}
     </GlobalContext.Provider>
   );
