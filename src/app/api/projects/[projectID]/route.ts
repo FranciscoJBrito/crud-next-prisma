@@ -13,7 +13,7 @@ export async function GET(request: Request, { params }: Params) {
         id: Number(params.projectID),
       },
       include: {
-        board: true,
+        colums: true,
       },
     });
     return NextResponse.json(project);
@@ -61,7 +61,7 @@ export async function PUT(request: Request, { params }: Params) {
 //Función para eliminar un proyecto
 export async function DELETE(request: Request, { params }: Params) {
   try {
-    await prisma.board.deleteMany({
+    await prisma.colum.deleteMany({
       where: {
         projectID: Number(params.projectID)
       }

@@ -6,7 +6,7 @@ export async function GET() {
   try {
     const colums = await prisma.colum.findMany({
       include: {
-        board: true,
+        project: true,
         tasks: true
       },
     });
@@ -28,10 +28,10 @@ export async function GET() {
 //Función para crear una columna
 export async function POST(request: Request) {
   try {
-    const { title, boardID } = await request.json();
+    const { title, projectID } = await request.json();
     const createdColum = await prisma.colum.create({
       data: {
-        boardID,
+        projectID,
         title,
       },
     });

@@ -4,11 +4,7 @@ import { prisma } from "@/libs/prisma";
 // Función para obtener todos los proyectos
 export async function GET() {
   try {
-    const allProjects = await prisma.project.findMany(
-      {
-        include: {board:true}
-      }
-    );
+    const allProjects = await prisma.project.findMany();
     return NextResponse.json(allProjects);
   } catch (error) {
     if (error instanceof Error) {
@@ -33,15 +29,9 @@ export async function POST(request: Request) {
         title,
       },
       include: {
-        board: true
+        colums: true
       }
     });
-    //Creando el tablero de manera conjunta con el proyecto
-    await prisma.board.create({
-      data: {
-        projectID: createdProject.id
-      }
-    })
     return NextResponse.json(createdProject);
   } catch (error) {
     if (error instanceof Error) {

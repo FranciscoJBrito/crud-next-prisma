@@ -19,24 +19,17 @@ model Note {
 
 model Project {
   id Int @id @default(autoincrement())
-  title String
+  title String @unique
   createdAt DateTime @default(now())
-  board Board[]
-}
-
-model Board {
-  id Int @id @default(autoincrement())
-  project Project @relation(fields: [projectID], references: [id])
-  projectID Int
   colums Colum[]
-} 
+}
 
 
 model Colum {
   id Int @id @default(autoincrement())
   title String
-  board Board @relation(fields: [boardID], references: [id])
-  boardID Int
+  project Project @relation(fields: [projectID], references: [id])
+  projectID Int
   tasks Task[]
 }
 

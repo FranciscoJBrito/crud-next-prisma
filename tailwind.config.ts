@@ -22,6 +22,10 @@ const config: Config = {
       },
       boxShadow: {
         'custom-inner': 'inset 0px 0px 10px 0px rgba(45,82,33,1);'
+      },
+      screens: {
+        '3xl': '1730',
+        '4xl': '1900'
       }
     },
   },
