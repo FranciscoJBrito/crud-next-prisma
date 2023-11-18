@@ -21,7 +21,8 @@ const config: Config = {
         'custom-gray': '#2A2B2B'
       },
       boxShadow: {
-        'custom-inner': 'inset 0px 0px 10px 0px rgba(45,82,33,1);'
+        'custom-inner': 'inset 0px 0px 10px 0px rgba(45,82,33,1);',
+        'custom-lime': '0px 0px 10px 4px rgba(45,82,33,1);'
       },
       screens: {
         '3xl': '1730',

@@ -24,11 +24,11 @@ const Board = ({ params }: Params) => {
   const [title, setTitle] = useState("");
 
   return (
-    <div className="grid grid-cols-5 w-full">
+    <div className="grid grid-cols-5 w-full gap-4">
       {colums.map((colum, i) => (
-        <Colum key={i} title={colum.title} />
+        <Colum key={i} id={colum.id} projectID={colum.projectID} title={colum.title} />
       ))}
-      <div className="flex items-center justify-center bg-custom-black rounded-lg w-full h-auto">
+      <div className="flex items-center justify-center bg-custom-gray/50 rounded-lg w-full h-auto">
         <button
           onClick={handleFrom}
           className={

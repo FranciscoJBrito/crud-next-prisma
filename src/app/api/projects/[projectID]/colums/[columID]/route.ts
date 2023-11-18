@@ -13,7 +13,7 @@ export async function GET(request: Request, { params }: Params) {
         id: Number(params.columID),
       },
       include: {
-        board: true,
+        project: true,
         tasks: true,
       },
     });

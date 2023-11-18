@@ -31,7 +31,7 @@ export async function POST(request: Request) {
     const { title, projectID } = await request.json();
     const createdColum = await prisma.colum.create({
       data: {
-        projectID,
+        projectID, 
         title,
       },
     });
