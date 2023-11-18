@@ -11,7 +11,7 @@ export const GlobalContext = createContext<{
   colums: Colum[];
   loadColums: (id: string |number) => Promise<void>;
   createColum: (colum: CreateColum) => Promise<void>;
-  updateColum: (colum: Colum) => Promise<void>
+  updateColum: (id: number, colum: CreateColum) => Promise<void>
 }>({
   projects: [],
   loadProjects: async () => {},
@@ -19,7 +19,7 @@ export const GlobalContext = createContext<{
   colums: [],
   loadColums: async (id: string | number) => {},
   createColum: async (colum: CreateColum) => {},
-  updateColum: async (colum: Colum) => {}
+  updateColum: async (id: number, colum: CreateColum) => {}
 });
 
 export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
@@ -73,16 +73,16 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
   }
 
   //Función para editar el titulo de una columna
-  const updateColum = async (colum: Colum) => {
-    const res = await fetch(`/api/projects/${colum.projectID}/colums/${colum.id}`, {
+  const updateColum = async (id: number, colum: CreateColum) => {
+    const res = await fetch(`/api/projects/${colum.projectID}/colums/${id}`, {
       method: "PUT",
-      body: JSON.stringify(colum.title),
+      body: JSON.stringify(colum),
       headers: {
         "Content-Type": "application/json",
       }
     });
     const updatedColum = await res.json()
-    setColums([...colums, updatedColum])
+    setColums(colums.map(col => col.id == id ? updatedColum : col))
   }
 
 

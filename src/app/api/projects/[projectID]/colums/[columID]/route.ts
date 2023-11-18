@@ -35,10 +35,11 @@ export async function GET(request: Request, { params }: Params) {
 //Función para editar una columna
 export async function PUT(request: Request, { params }: Params) {
   try {
-    const { title } = await request.json();
+    const { title, projectID } = await request.json();
     const updatedColum = await prisma.colum.update({
       where: {
         id: Number(params.columID),
+        projectID: projectID
       },
       data: {
         title,
