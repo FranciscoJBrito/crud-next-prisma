@@ -7,7 +7,7 @@ const Colum = (colum: Colum) => {
   const [title, setTitle] = useState("");
 
   return (
-    <div className="w-full h-auto bg-custom-gray/50 rounded-lg p-4">
+    <div className="min-w-[300px] h-min  bg-custom-gray/50 rounded-lg p-4 mr-4">
       <input
         className="bg-transparent pl-2 focus:rounded-sm focus-visible:outline-lime-500 focus-visible:outline-1 focus-visible:outline-none focus-visible:shadow-custom-lime"
         onChange={(e) => setTitle(e.target.value)}
@@ -16,8 +16,6 @@ const Colum = (colum: Colum) => {
             projectID: colum.projectID,
             title: title,
           });
-          console.log(title)
-          console.log(colum)
         }}
         defaultValue={colum.title}
       />

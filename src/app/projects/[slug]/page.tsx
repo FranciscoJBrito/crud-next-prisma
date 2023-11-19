@@ -24,15 +24,15 @@ const Board = ({ params }: Params) => {
   const [title, setTitle] = useState("");
 
   return (
-    <div className="grid grid-cols-5 w-full gap-4">
+    <div className="flex min-h-100% w-auto">
       {colums.map((colum, i) => (
         <Colum key={i} id={colum.id} projectID={colum.projectID} title={colum.title} />
       ))}
-      <div className="flex items-center justify-center bg-custom-gray/50 rounded-lg w-full h-auto">
+      <div className="flex items-center justify-center bg-custom-gray/20 border-[1px] border-dashed border-custom-gray rounded-lg min-w-[300px] h-min">
         <button
           onClick={handleFrom}
           className={
-            showForm ? "hidden" : "flex justify-center w-full h-full p-4"
+            showForm ? "hidden" : "flex justify-center w-full h-full p-4 text-white/20"
           }
         >
           + crear columna
@@ -55,6 +55,7 @@ const Board = ({ params }: Params) => {
             placeholder="Titulo de la columna..."
             className="block w-full flex-1 border-[1px] border-custom-gray rounded-lg bg-transparent py-1.5 px-2 text-white placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 focus:outline-lime-500 "
             onChange={(e) => setTitle(e.target.value)}
+            defaultValue={''}
           />
           <div className="flex items-center mt-4">
             <button
