@@ -35,7 +35,7 @@ const Sidebar = () => {
     <div className="w-[80px] h-screen flex justify-end items-center pb-3 bg-custom-black border-r-[1px] border-white/10">
       <div className="w-full h-full flex flex-col justify-start items-center pb-4">
         <div className="flex justify-center items-center w-full h-[75px] bg-custom-deep-black mb-4 border-b-[1px] border-custom-gray hover:shadow-custom-inner hover:shadow-lime-400 transition-all ">
-        <Image src="/limetasklogo.png" width={28} height={28} alt="Logo limetask"/>
+        <Image src="/limetasklogo.png" width={25} height={25} alt="Logo limetask"/>
         </div>
         {navLinks.map(({ key, icon, link }) => ( 
           <Link
