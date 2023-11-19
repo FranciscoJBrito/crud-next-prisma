@@ -4,19 +4,24 @@ import { useGlobalContext } from "@/hooks/useGlobalContext";
 
 const Colum = (colum: Colum) => {
   const { updateColum } = useGlobalContext();
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState(colum.title);
+  const handleBlur = async () => {
+    if ( title === colum.title) {
+      return null;
+    } else {
+      await updateColum(colum.id, {
+        projectID: colum.projectID,
+        title: title,
+      });
+    }
+  };
 
   return (
-    <div className="min-w-[300px] h-min  bg-custom-gray/50 rounded-lg p-4 mr-4">
+    <div className="min-w-[300px] h-min  bg-custom-gray/50 rounded-lg p-2 mr-4">
       <input
-        className="bg-transparent pl-2 focus:rounded-sm focus-visible:outline-lime-500 focus-visible:outline-1 focus-visible:outline-none focus-visible:shadow-custom-lime"
+        className="cursor-pointer bg-transparent pl-2 focus:rounded-sm focus-visible:outline-lime-500 focus-visible:outline-1 focus-visible:outline-none focus-visible:shadow-custom-lime"
         onChange={(e) => setTitle(e.target.value)}
-        onBlur={async () => {
-          await updateColum(colum.id, {
-            projectID: colum.projectID,
-            title: title,
-          });
-        }}
+        onBlur={handleBlur}
         defaultValue={colum.title}
       />
     </div>

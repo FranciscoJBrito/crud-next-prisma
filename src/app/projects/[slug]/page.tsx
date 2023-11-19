@@ -32,7 +32,7 @@ const Board = ({ params }: Params) => {
         <button
           onClick={handleFrom}
           className={
-            showForm ? "hidden" : "flex justify-center w-full h-full p-4 text-white/20"
+            showForm ? "hidden" : "flex justify-center w-full h-full p-2 text-white/20"
           }
         >
           + crear columna
