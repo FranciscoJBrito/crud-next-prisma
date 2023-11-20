@@ -32,7 +32,6 @@ const Card = (props: NoteContent) => {
       <NotesDropDown id={props.id}/>
       </div>
       <h3 className="text-lg font-semibold text-black/80">{props.title}</h3>
-      <p className="text-black/60">{props.content}</p>
     </div>
   )
 }
