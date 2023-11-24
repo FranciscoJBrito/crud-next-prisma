@@ -27,7 +27,7 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
   const [colums, setColums] = useState<Colum[]>([])
 
 
-//FUNCIONES DE PROYECTOS 
+/* <-- FUNCIONES DE PROYECTOS --> */ 
 
   //Función para cargar los proyectos
   const loadProjects = async () => {
@@ -50,7 +50,7 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
 
-  //FUNCIONES DE COLUMNAS
+  /* <-- FUNCIONES DE COLUMNAS --> */
 
   //Función para cargar las columnas
   const loadColums = async (id: number | string) => {
@@ -85,6 +85,13 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
     setColums(colums.map(col => col.id == id ? updatedColum : col))
   }
 
+  /* <-- FUNCIONES DE TAREAS --> */
+
+  //Función para cargar las tareas de cada columna
+  const task = async (id: number, projectID: number) => {
+    const res = await fetch(`/api/projects/${projectID}/colums/${id}`)
+    const data = await res.json()
+  }
 
 
   return (

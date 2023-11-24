@@ -1,37 +1,11 @@
 'use client'
-import { useState } from "react"
-import { NotesDropDown } from "./NotesDropDown"
-import { NoteContent } from "@/interfaces/Note"
-import {useSortable} from '@dnd-kit/sortable';
-import {CSS} from '@dnd-kit/utilities';
 
 
-const Card = (props: NoteContent) => {
-  const [content, setContent] = useState(false)
-  const handleEdit = () => {
-    setContent(!content)
-  }
-
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-  } = useSortable({id: props.id});
-  
-
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-  };
+const Card = ({title}: {title: string}) => {
 
   return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners} className="bordr-[1px] border-blck/10 w-full h-full bg-white border-[1px] broder-cream/10 p-3 rounded-lg relative">
-      <div className="z-50">
-      <NotesDropDown id={props.id}/>
-      </div>
-      <h3 className="text-lg font-semibold text-black/80">{props.title}</h3>
+    <div className="w-full h-min px-3 py-2 rounded-lg bg-custom-gray my-1 cursor-pointer hover:bg-white/20">
+      <h4>{title}</h4>
     </div>
   )
 }

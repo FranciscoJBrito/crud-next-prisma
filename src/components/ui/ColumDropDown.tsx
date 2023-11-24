@@ -9,7 +9,7 @@ interface Props {
 
 const ColumDropDown = () => {
   return (
-    <div className="absolute top-0 right-2 w-56 text-right">
+    <div className="absolute top-0 right-0 w-full text-right">
       <Menu as="div" className="relative inline-block text-left">
         <div>
           <Menu.Button className="focus:outline-none">
