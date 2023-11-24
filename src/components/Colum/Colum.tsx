@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Colum } from "@prisma/client";
 import { useGlobalContext } from "@/hooks/useGlobalContext";
-import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
+import ColumDropDown from "../ui/ColumDropDown";
 
 const Colum = (colum: Colum) => {
   const { updateColum } = useGlobalContext();
@@ -26,7 +26,9 @@ const Colum = (colum: Colum) => {
           onBlur={handleBlur}
           defaultValue={colum.title}
         />
-        <EllipsisVerticalIcon className="h-6 w-6"/>
+        <div className="relative ">
+          <ColumDropDown />
+        </div>
       </div>
 
       <div className="flex flex-col"></div>
