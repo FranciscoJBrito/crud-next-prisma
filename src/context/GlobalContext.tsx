@@ -1,6 +1,6 @@
 "use client";
 import { createContext, useState } from "react";
-import { Project, Colum } from "@prisma/client";
+import { Project, Colum, Task } from "@prisma/client";
 import { CreateProject } from "@/interfaces/Project";
 import { CreateColum } from "@/interfaces/Colum";
 
@@ -12,6 +12,8 @@ export const GlobalContext = createContext<{
   loadColums: (id: string |number) => Promise<void>;
   createColum: (colum: CreateColum) => Promise<void>;
   updateColum: (id: number, colum: CreateColum) => Promise<void>
+  tasks: Task[];
+  loadTasks: (id: number, projectID: number) => Promise<void>
 }>({
   projects: [],
   loadProjects: async () => {},
@@ -19,12 +21,15 @@ export const GlobalContext = createContext<{
   colums: [],
   loadColums: async (id: string | number) => {},
   createColum: async (colum: CreateColum) => {},
-  updateColum: async (id: number, colum: CreateColum) => {}
+  updateColum: async (id: number, colum: CreateColum) => {},
+  tasks: [],
+  loadTasks: async (id: number, projectID: number) => {},
 });
 
 export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [colums, setColums] = useState<Colum[]>([])
+  const [tasks, setTasks] = useState<Task[]>([])
 
 
 /* <-- FUNCIONES DE PROYECTOS --> */ 
@@ -88,14 +93,15 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
   /* <-- FUNCIONES DE TAREAS --> */
 
   //Función para cargar las tareas de cada columna
-  const task = async (id: number, projectID: number) => {
+  const loadTasks = async (id: number, projectID: number) => {
     const res = await fetch(`/api/projects/${projectID}/colums/${id}`)
     const data = await res.json()
+    setTasks(data.tasks)
   }
 
 
   return (
-    <GlobalContext.Provider value={{ projects, loadProjects, createProject, colums, loadColums, createColum, updateColum }}>
+    <GlobalContext.Provider value={{ projects, loadProjects, createProject, colums, loadColums, createColum, updateColum, tasks, loadTasks }}>
       {children}
     </GlobalContext.Provider>
   );

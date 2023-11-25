@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/libs/prisma";
+import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 
 
 //Función para obtener las tareas
@@ -35,7 +36,6 @@ export async function POST(request: Request) {
         status
       },
     });
-
     return NextResponse.json(newTask);
   } catch (error) {
     if (error instanceof Error) {

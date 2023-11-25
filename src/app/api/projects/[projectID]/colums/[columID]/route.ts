@@ -38,7 +38,7 @@ export async function PUT(request: Request, { params }: Params) {
     const { title, projectID } = await request.json();
     const updatedColum = await prisma.colum.update({
       where: {
-        id: Number(params.columID),
+        id: Number(params.columID), 
         projectID: projectID
       },
       data: {

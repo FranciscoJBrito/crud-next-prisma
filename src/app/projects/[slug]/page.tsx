@@ -4,17 +4,19 @@ import { useEffect, useState } from "react";
 import { useGlobalContext } from "@/hooks/useGlobalContext";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import NavBar from "@/components/NavBar/NavBar";
+import ColumComponent from "@/components/Colum/Colum";
 
 interface Params {
   params: { slug: string | number };
 }
 
 const Board = ({ params }: Params) => {
-  const { colums, loadColums, createColum } = useGlobalContext();
+  const { colums, loadColums, createColum, loadTasks } = useGlobalContext();
   //Use Effect para cargar las columnas
   useEffect(() => {
     loadColums(params.slug);
   }, []);
+
   //Estado para controlar el formulario de creación de la columna
   const [showForm, setShowForm] = useState(false);
   const handleFrom = () => {
@@ -31,7 +33,7 @@ const Board = ({ params }: Params) => {
       </div>
       <div className="flex min-h-100% w-auto mt-20">
         {colums.map((colum, i) => (
-          <Colum
+          <ColumComponent
             key={i}
             id={colum.id}
             projectID={colum.projectID}
