@@ -1,15 +1,24 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/libs/prisma";
 
+interface Params {
+  params: {projectID: string}
+}
+
+
 //Función para obtener las columnas
-export async function GET() {
+export async function GET(request: Request, context: { params: any}) {
   try {
     const colums = await prisma.colum.findMany({
+      where: {
+        projectID: Number(context.params.projectID)
+      },
       include: {
         project: true,
         tasks: true
       },
     });
+    //return NextResponse.json(context.params.projectID)
     return NextResponse.json(colums);
   } catch (error) {
     if (error instanceof Error) {

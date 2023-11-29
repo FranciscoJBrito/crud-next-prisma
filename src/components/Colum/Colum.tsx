@@ -1,16 +1,12 @@
 import { useEffect, useState } from "react";
-import { Colum } from "@prisma/client";
 import { useGlobalContext } from "@/hooks/useGlobalContext";
 import ColumDropDown from "../ui/ColumDropDown";
 import Card from "../ui/Card";
+import { ColumPlusTasks } from "@/interfaces/Colum";
 
-const ColumComponent = (colum: Colum) => {
-  const { updateColum, tasks, loadTasks } = useGlobalContext();
+const ColumComponent = (colum: ColumPlusTasks) => {
+  const { updateColum } = useGlobalContext();
   const [title, setTitle] = useState(colum.title);
-  //Cargando las tareas de cada columna
-  useEffect(() => {
-    loadTasks(colum.id, colum.projectID);
-  }, []);
 
   //Manejo de titulo editable de la columna
   const handleBlur = async () => {
@@ -40,14 +36,10 @@ const ColumComponent = (colum: Colum) => {
         </div>
       </div>
 
-      <div className="flex flex-col">     
-        {tasks.length >= 1
-          ? tasks.map((task) =>
-              task.columID === colum.id ? (
-                <Card key={task.id} title={task.title} />
-              ) : null
-            )
-          : null}
+      <div className="flex flex-col">
+        {colum.tasks.map((task) => (
+          <Card key={task.id} title={task.title} />
+        ))}
         <Card title={`Tarea N${colum.id}`} />
       </div>
     </div>

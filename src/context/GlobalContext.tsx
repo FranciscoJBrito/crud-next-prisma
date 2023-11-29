@@ -2,13 +2,13 @@
 import { createContext, useState } from "react";
 import { Project, Colum, Task } from "@prisma/client";
 import { CreateProject } from "@/interfaces/Project";
-import { CreateColum } from "@/interfaces/Colum";
+import { ColumPlusTasks, CreateColum } from "@/interfaces/Colum";
 
 export const GlobalContext = createContext<{
   projects: Project[];
   loadProjects: () => Promise<void>;
   createProject: (project: CreateProject) => Promise<void>;
-  colums: Colum[];
+  colums: ColumPlusTasks[];
   loadColums: (id: string |number) => Promise<void>;
   createColum: (colum: CreateColum) => Promise<void>;
   updateColum: (id: number, colum: CreateColum) => Promise<void>
@@ -28,7 +28,7 @@ export const GlobalContext = createContext<{
 
 export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
   const [projects, setProjects] = useState<Project[]>([]);
-  const [colums, setColums] = useState<Colum[]>([])
+  const [colums, setColums] = useState<ColumPlusTasks[]>([])
   const [tasks, setTasks] = useState<Task[]>([])
 
 
@@ -59,9 +59,9 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
 
   //Función para cargar las columnas
   const loadColums = async (id: number | string) => {
-    const res = await fetch(`/api/projects/${id}`)
+    const res = await fetch(`/api/projects/${id}/colums`)
     const data = await res.json()
-    setColums(data.colums);
+    setColums(data);
   }
 
   //Función para crear una columna

@@ -38,6 +38,7 @@ const Board = ({ params }: Params) => {
             id={colum.id}
             projectID={colum.projectID}
             title={colum.title}
+            tasks={colum.tasks}
           />
         ))}
         <div className="flex items-center justify-center bg-custom-gray/20 border-[1px] border-dashed border-custom-gray rounded-lg min-w-[300px] h-min">
