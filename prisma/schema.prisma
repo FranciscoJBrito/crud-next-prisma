@@ -37,8 +37,8 @@ model Task {
   id Int @id @default(autoincrement())
   title String
   description String?
-  priority String
-  status String
+  priority String?
+  status String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   colum Colum @relation(fields: [columID], references: [id])

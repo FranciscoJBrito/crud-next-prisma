@@ -3,10 +3,16 @@ import { useGlobalContext } from "@/hooks/useGlobalContext";
 import ColumDropDown from "../ui/ColumDropDown";
 import Card from "../ui/Card";
 import { ColumPlusTasks } from "@/interfaces/Colum";
+import CreateTaskBtn from "../ui/CreateTaskBtn";
 
 const ColumComponent = (colum: ColumPlusTasks) => {
-  const { updateColum } = useGlobalContext();
+  const { updateColum, loadTasks } = useGlobalContext();
   const [title, setTitle] = useState(colum.title);
+
+  //Cargando las tareas
+  useEffect(() => {
+    loadTasks(colum.id, colum.projectID);
+  }, []);
 
   //Manejo de titulo editable de la columna
   const handleBlur = async () => {
@@ -41,6 +47,7 @@ const ColumComponent = (colum: ColumPlusTasks) => {
           <Card key={task.id} title={task.title} />
         ))}
         <Card title={`Tarea N${colum.id}`} />
+        <CreateTaskBtn projectID={colum.projectID} columID={colum.id} />
       </div>
     </div>
   );

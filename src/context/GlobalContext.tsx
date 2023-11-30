@@ -3,6 +3,7 @@ import { createContext, useState } from "react";
 import { Project, Colum, Task } from "@prisma/client";
 import { CreateProject } from "@/interfaces/Project";
 import { ColumPlusTasks, CreateColum } from "@/interfaces/Colum";
+import { CreateTask } from "@/interfaces/Task";
 
 export const GlobalContext = createContext<{
   projects: Project[];
@@ -14,6 +15,7 @@ export const GlobalContext = createContext<{
   updateColum: (id: number, colum: CreateColum) => Promise<void>
   tasks: Task[];
   loadTasks: (id: number, projectID: number) => Promise<void>
+  createTask: (projectID: number | string, task: CreateTask) => Promise<void>
 }>({
   projects: [],
   loadProjects: async () => {},
@@ -24,6 +26,7 @@ export const GlobalContext = createContext<{
   updateColum: async (id: number, colum: CreateColum) => {},
   tasks: [],
   loadTasks: async (id: number, projectID: number) => {},
+  createTask: async (projectID: number | string, task: CreateTask) => {}
 });
 
 export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
@@ -94,14 +97,27 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
 
   //Función para cargar las tareas de cada columna
   const loadTasks = async (id: number, projectID: number) => {
-    const res = await fetch(`/api/projects/${projectID}/colums/${id}`)
+    const res = await fetch(`/api/projects/${projectID}/colums/${id}/tasks`)
     const data = await res.json()
-    setTasks(data.tasks)
+    setTasks(data)
+  }
+
+  //Función para crear una tarea
+  const createTask = async (projectID: number | string ,task: CreateTask) => {
+    const res = await fetch(`/api/projects/${projectID}/colums/${task.columID}/tasks`, {
+      method: "POST",
+      body: JSON.stringify(task),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const newTask = await res.json()
+    setTasks([...tasks, newTask])
   }
 
 
   return (
-    <GlobalContext.Provider value={{ projects, loadProjects, createProject, colums, loadColums, createColum, updateColum, tasks, loadTasks }}>
+    <GlobalContext.Provider value={{ projects, loadProjects, createProject, colums, loadColums, createColum, updateColum, tasks, loadTasks, createTask }}>
       {children}
     </GlobalContext.Provider>
   );
