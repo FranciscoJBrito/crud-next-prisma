@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from "react";
 import { useGlobalContext } from "@/hooks/useGlobalContext";
 import ColumDropDown from "../ui/ColumDropDown";
@@ -43,10 +44,11 @@ const ColumComponent = (colum: ColumPlusTasks) => {
       </div>
 
       <div className="flex flex-col">
-        {colum.tasks.map((task) => (
-          <Card key={task.id} title={task.title} />
-        ))}
-        <Card title={`Tarea N${colum.id}`} />
+        {colum.tasks == undefined
+          ? null
+          : colum.tasks.map((task) => (
+              <Card key={task.id} title={task.title} />
+            ))}
         <CreateTaskBtn projectID={colum.projectID} columID={colum.id} />
       </div>
     </div>

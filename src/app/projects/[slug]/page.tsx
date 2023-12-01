@@ -11,11 +11,11 @@ interface Params {
 }
 
 const Board = ({ params }: Params) => {
-  const { colums, loadColums, createColum, loadTasks } = useGlobalContext();
+  const { colums, loadColums, createColum, createTask } = useGlobalContext();
   //Use Effect para cargar las columnas
   useEffect(() => {
     loadColums(params.slug);
-  }, []);
+  }, [createTask]);
 
   //Estado para controlar el formulario de creación de la columna
   const [showForm, setShowForm] = useState(false);
