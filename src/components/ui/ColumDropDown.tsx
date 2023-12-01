@@ -8,13 +8,14 @@ interface Props {
   aria_hidden: string;
 }
 
-interface Colum {
+interface ColumActions {
   columID: number,
-  projectID: number
+  projectID: number,
+  title: string
 }
 
-const ColumDropDown = (props: Colum) => {
-  const { deleteColum } = useGlobalContext();
+const ColumDropDown = (props: ColumActions) => {
+  const { deleteColum, createColum } = useGlobalContext();
 
 
   return (
@@ -45,6 +46,12 @@ const ColumDropDown = (props: Colum) => {
                     className={`${
                       active ? "bg-lime-400 text-gray-900" : "text-white"
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    onClick={async () => {
+                      await createColum({
+                        title: props.title,
+                        projectID: props.projectID
+                      })
+                    }}
                   >
                     {active ? (
                       <DuplicateActiveIcon
@@ -68,7 +75,6 @@ const ColumDropDown = (props: Colum) => {
                       active ? "bg-red-600 text-white" : "text-white"
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                     onClick={async () => {
-                      console.log();
                       if (
                         confirm("Estas seguro de que deseas eliminar la nota?")
                       ) {

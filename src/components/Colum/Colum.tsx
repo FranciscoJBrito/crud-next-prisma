@@ -39,7 +39,7 @@ const ColumComponent = (colum: ColumPlusTasks) => {
           />
         </div>
         <div className="relative w-1/6">
-          <ColumDropDown columID={colum.id} projectID={colum.projectID}/>
+          <ColumDropDown columID={colum.id} projectID={colum.projectID} title={colum.title}/>
         </div>
       </div>
 
