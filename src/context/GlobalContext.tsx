@@ -13,6 +13,7 @@ export const GlobalContext = createContext<{
   loadColums: (id: string |number) => Promise<void>;
   createColum: (colum: CreateColum) => Promise<void>;
   updateColum: (id: number, colum: CreateColum) => Promise<void>
+  deleteColum: (id: number, projectID: number) => Promise<void>
   tasks: Task[];
   loadTasks: (id: number, projectID: number) => Promise<void>
   createTask: (projectID: number | string, task: CreateTask) => Promise<void>
@@ -24,6 +25,7 @@ export const GlobalContext = createContext<{
   loadColums: async (id: string | number) => {},
   createColum: async (colum: CreateColum) => {},
   updateColum: async (id: number, colum: CreateColum) => {},
+  deleteColum: async (id: number, projectID: number) => {},
   tasks: [],
   loadTasks: async (id: number, projectID: number) => {},
   createTask: async (projectID: number | string, task: CreateTask) => {}
@@ -93,6 +95,15 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
     setColums(colums.map(col => col.id == id ? updatedColum : col))
   }
 
+  //Función para eliminar una columna
+  const deleteColum = async (id: number, projectID: number) => {
+    const res = await fetch(`/api/projects/${projectID}/colums/${id}`, {
+      method: 'DELETE'
+    })
+    const data = await res.json()
+    setColums(colums.filter(colum => colum.id != id))
+  }
+
   /* <-- FUNCIONES DE TAREAS --> */
 
   //Función para cargar las tareas de cada columna
@@ -117,7 +128,7 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
 
 
   return (
-    <GlobalContext.Provider value={{ projects, loadProjects, createProject, colums, loadColums, createColum, updateColum, tasks, loadTasks, createTask }}>
+    <GlobalContext.Provider value={{ projects, loadProjects, createProject, colums, loadColums, createColum, updateColum, deleteColum, tasks, loadTasks, createTask }}>
       {children}
     </GlobalContext.Provider>
   );

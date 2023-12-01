@@ -1,13 +1,22 @@
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
+import { useGlobalContext } from "@/hooks/useGlobalContext";
 
 interface Props {
   className: string;
   aria_hidden: string;
 }
 
-const ColumDropDown = () => {
+interface Colum {
+  columID: number,
+  projectID: number
+}
+
+const ColumDropDown = (props: Colum) => {
+  const { deleteColum } = useGlobalContext();
+
+
   return (
     <div className="absolute top-0 right-0 w-full text-right">
       <Menu as="div" className="relative inline-block text-left">
@@ -38,28 +47,6 @@ const ColumDropDown = () => {
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
                     {active ? (
-                      <EditActiveIcon
-                        className="mr-2 h-5 w-5"
-                        aria_hidden="true"
-                      />
-                    ) : (
-                      <EditInactiveIcon
-                        className="mr-2 h-5 w-5"
-                        aria_hidden="true"
-                      />
-                    )}
-                    Editar
-                  </button>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    className={`${
-                      active ? "bg-lime-400 text-gray-900" : "text-white"
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                  >
-                    {active ? (
                       <DuplicateActiveIcon
                         className="mr-2 h-5 w-5"
                         aria_hidden="true"
@@ -74,54 +61,6 @@ const ColumDropDown = () => {
                   </button>
                 )}
               </Menu.Item>
-            </div>
-            <div className="px-1 py-1">
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    className={`${
-                      active ? "bg-lime-400 text-gray-900" : "text-white"
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                  >
-                    {active ? (
-                      <ArchiveActiveIcon
-                        className="mr-2 h-5 w-5"
-                        aria_hidden="true"
-                      />
-                    ) : (
-                      <ArchiveInactiveIcon
-                        className="mr-2 h-5 w-5"
-                        aria_hidden="true"
-                      />
-                    )}
-                    Archivar
-                  </button>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    className={`${
-                      active ? "bg-lime-400 text-gray-900" : "text-white"
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                  >
-                    {active ? (
-                      <MoveActiveIcon
-                        className="mr-2 h-5 w-5"
-                        aria_hidden="true"
-                      />
-                    ) : (
-                      <MoveInactiveIcon
-                        className="mr-2 h-5 w-5"
-                        aria_hidden="true"
-                      />
-                    )}
-                    Mover
-                  </button>
-                )}
-              </Menu.Item>
-            </div>
-            <div className="px-1 py-1">
               <Menu.Item>
                 {({ active }) => (
                   <button
@@ -130,13 +69,13 @@ const ColumDropDown = () => {
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                     onClick={async () => {
                       console.log();
-                      /* if (
+                      if (
                         confirm("Estas seguro de que deseas eliminar la nota?")
                       ) {
-                        await deleteNote(id);
+                        await deleteColum(props.columID, props.projectID);
                       } else {
                         null;
-                      } */
+                      }
                     }}
                   >
                     {active ? (
@@ -155,6 +94,8 @@ const ColumDropDown = () => {
                 )}
               </Menu.Item>
             </div>
+
+
           </Menu.Items>
         </Transition>
       </Menu>

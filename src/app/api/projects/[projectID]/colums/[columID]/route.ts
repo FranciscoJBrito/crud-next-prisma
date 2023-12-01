@@ -63,6 +63,11 @@ export async function PUT(request: Request, { params }: Params) {
 //Función para eliminar una columna
 export async function DELETE(request: Request, { params }: Params) {
   try {
+    await prisma.task.deleteMany({
+      where: {
+        columID: Number(params.columID)
+      }
+    })
     const deletedColum = await prisma.colum.delete({
       where: {
         id: Number(params.columID),
