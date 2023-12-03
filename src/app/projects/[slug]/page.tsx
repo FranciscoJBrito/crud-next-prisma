@@ -5,6 +5,22 @@ import { useGlobalContext } from "@/hooks/useGlobalContext";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import NavBar from "@/components/NavBar/NavBar";
 import ColumComponent from "@/components/Colum/Colum";
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+  horizontalListSortingStrategy
+} from "@dnd-kit/sortable";
+import { SortableItem } from "@/components/ui/SortableItem";
 
 interface Params {
   params: { slug: string | number };
@@ -26,21 +42,55 @@ const Board = ({ params }: Params) => {
   //Estado para almacenar el valor del input
   const [title, setTitle] = useState("");
 
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
+  const [items, setItems] = useState(colums);
+  function handleDragEnd(event: any) {
+    const { active, over } = event;
+
+    if (active.id !== over.id) {
+      setItems((items) => {
+        const oldIndex = items.indexOf(active.id);
+        const newIndex = items.indexOf(over.id);
+
+        return arrayMove(items, oldIndex, newIndex);
+      });
+    }
+  }
+
   return (
     <>
       <div className="fixed max-w-[92.5%]  w-full">
         <NavBar />
       </div>
       <div className="flex min-h-100% w-auto mt-20">
-        {colums.map((colum, i) => (
-          <ColumComponent
-            key={i}
-            id={colum.id}
-            projectID={colum.projectID}
-            title={colum.title}
-            tasks={colum.tasks}
-          />
-        ))}
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+        >
+          {colums.map((colum, i) => (
+            <SortableContext
+              key={i}
+              items={colums}
+              strategy={verticalListSortingStrategy}
+            >
+              {/* <SortableItem id={colum.id}> */}
+              <ColumComponent
+                id={colum.id}
+                projectID={colum.projectID}
+                title={colum.title}
+                tasks={colum.tasks}
+              />
+              {/* </SortableItem> */}
+            </SortableContext>
+          ))}
+        </DndContext>
         <div className="flex items-center justify-center bg-custom-gray/20 border-[1px] border-dashed border-custom-gray rounded-lg min-w-[300px] h-min">
           <button
             onClick={handleFrom}

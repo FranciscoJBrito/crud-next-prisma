@@ -5,6 +5,8 @@ import ColumDropDown from "../ui/ColumDropDown";
 import Card from "../ui/Card";
 import { ColumPlusTasks } from "@/interfaces/Colum";
 import CreateTaskBtn from "../ui/CreateTaskBtn";
+import { useDroppable } from "@dnd-kit/core";
+import { SortableItem } from "../ui/SortableItem";
 
 const ColumComponent = (colum: ColumPlusTasks) => {
   const { updateColum, loadTasks } = useGlobalContext();
@@ -27,8 +29,19 @@ const ColumComponent = (colum: ColumPlusTasks) => {
     }
   };
 
+  ////
+
+  const {setNodeRef} = useDroppable({
+    id: colum.id,
+  });
+
+
+  
+
+  /////
   return (
-    <div className="min-w-[300px] h-min  bg-custom-gray/50 rounded-lg p-2 mr-4">
+    
+    <div ref={setNodeRef} className="min-w-[300px] h-min  bg-custom-gray/50 rounded-lg p-2 mr-4">
       <div className="flex justify-between w-full mb-4">
         <div className="w-full ">
           <input
