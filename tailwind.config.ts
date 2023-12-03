@@ -18,7 +18,8 @@ const config: Config = {
         'custom-black': '#171717',
         'custom-second-black': '#232323',
         'custom-deep-black': '#131313',
-        'custom-gray': '#2A2B2B'
+        'custom-gray': '#2A2B2B',
+        'custom-bg-gray': '#1E1F1F'
       },
       boxShadow: {
         'custom-inner': 'inset 0px 0px 10px 0px rgba(45,82,33,1);',

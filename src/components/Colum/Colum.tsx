@@ -6,7 +6,8 @@ import Card from "../ui/Card";
 import { ColumPlusTasks } from "@/interfaces/Colum";
 import CreateTaskBtn from "../ui/CreateTaskBtn";
 import { useDroppable } from "@dnd-kit/core";
-import { SortableItem } from "../ui/SortableItem";
+import { CSS } from "@dnd-kit/utilities";
+import { useSortable } from "@dnd-kit/sortable";
 
 const ColumComponent = (colum: ColumPlusTasks) => {
   const { updateColum, loadTasks } = useGlobalContext();
@@ -29,20 +30,49 @@ const ColumComponent = (colum: ColumPlusTasks) => {
     }
   };
 
-  ////
-
-  const {setNodeRef} = useDroppable({
+  // Hook
+  const {
+    setNodeRef,
+    attributes,
+    listeners,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({
     id: colum.id,
+    data: {
+      type: "ColumPlusTask",
+      colum,
+    },
   });
 
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
 
-  
+  if (isDragging) {
+    return (
+      <div
+        ref={setNodeRef}
+        style={style}
+        className="min-w-[300px] min-h-min h-min  bg-custom-bg-gray  rounded-lg p-2 mr-4"
+      ></div>
+    );
+  }
 
-  /////
+
   return (
-    
-    <div ref={setNodeRef} className="min-w-[300px] h-min  bg-custom-gray/50 rounded-lg p-2 mr-4">
-      <div className="flex justify-between w-full mb-4">
+    <div
+      ref={setNodeRef}
+      style={style}
+      className="min-w-[300px] min-h-min h-min  bg-custom-bg-gray  rounded-lg p-2 mr-4"
+    >
+      <div
+        {...attributes}
+        {...listeners}
+        className="flex justify-between w-full mb-4"
+      >
         <div className="w-full ">
           <input
             className="block w-5/6 cursor-pointer bg-transparent px-3 focus:rounded-sm focus-visible:outline-lime-500 focus-visible:outline-1 focus-visible:outline-none focus-visible:shadow-custom-lime"
@@ -52,7 +82,11 @@ const ColumComponent = (colum: ColumPlusTasks) => {
           />
         </div>
         <div className="relative w-1/6">
-          <ColumDropDown columID={colum.id} projectID={colum.projectID} title={colum.title}/>
+          <ColumDropDown
+            columID={colum.id}
+            projectID={colum.projectID}
+            title={colum.title}
+          />
         </div>
       </div>
 
@@ -60,7 +94,7 @@ const ColumComponent = (colum: ColumPlusTasks) => {
         {colum.tasks == undefined
           ? null
           : colum.tasks.map((task) => (
-              <Card key={task.id} title={task.title} />
+              <Card key={task.id} id={task.id} title={task.title} />
             ))}
         <CreateTaskBtn projectID={colum.projectID} columID={colum.id} />
       </div>
