@@ -88,6 +88,7 @@ const Board = ({ params }: Params) => {
         <div className="flex min-h-100% w-auto mt-20">
           <SortableContext
             items={columsID}
+            strategy={horizontalListSortingStrategy}
           >
             {colums.map((colum, i) => (
               <ColumComponent
