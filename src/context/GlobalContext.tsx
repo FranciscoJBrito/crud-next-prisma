@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useState } from "react";
+import { createContext, useState, Dispatch, SetStateAction } from "react";
 import { Project, Colum, Task } from "@prisma/client";
 import { CreateProject } from "@/interfaces/Project";
 import { ColumPlusTasks, CreateColum } from "@/interfaces/Colum";
@@ -10,6 +10,7 @@ export const GlobalContext = createContext<{
   loadProjects: () => Promise<void>;
   createProject: (project: CreateProject) => Promise<void>;
   colums: ColumPlusTasks[];
+  setColums: Dispatch<SetStateAction<ColumPlusTasks[]>>;
   loadColums: (id: string |number) => Promise<void>;
   createColum: (colum: CreateColum) => Promise<void>;
   updateColum: (id: number, colum: CreateColum) => Promise<void>
@@ -22,6 +23,7 @@ export const GlobalContext = createContext<{
   loadProjects: async () => {},
   createProject: async (project: CreateProject) => {},
   colums: [],
+  setColums: () => {},
   loadColums: async (id: string | number) => {},
   createColum: async (colum: CreateColum) => {},
   updateColum: async (id: number, colum: CreateColum) => {},
@@ -128,7 +130,7 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
 
 
   return (
-    <GlobalContext.Provider value={{ projects, loadProjects, createProject, colums, loadColums, createColum, updateColum, deleteColum, tasks, loadTasks, createTask }}>
+    <GlobalContext.Provider value={{ projects, loadProjects, createProject, colums, setColums,loadColums, createColum, updateColum, deleteColum, tasks, loadTasks, createTask }}>
       {children}
     </GlobalContext.Provider>
   );

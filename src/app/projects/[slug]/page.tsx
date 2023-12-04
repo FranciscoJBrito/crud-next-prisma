@@ -1,5 +1,4 @@
 "use client";
-import Colum from "@/components/Colum/Colum";
 import { useEffect, useMemo, useState } from "react";
 import { useGlobalContext } from "@/hooks/useGlobalContext";
 import { XMarkIcon } from "@heroicons/react/20/solid";
@@ -14,16 +13,15 @@ import {
   useSensors,
   DragStartEvent,
   DragOverlay,
+  DragEndEvent,
 } from "@dnd-kit/core";
 import {
   arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
-  verticalListSortingStrategy,
   horizontalListSortingStrategy,
   useSortable,
 } from "@dnd-kit/sortable";
-import { SortableItem } from "@/components/ui/SortableItem";
 import { ColumPlusTasks } from "@/interfaces/Colum";
 import { createPortal } from "react-dom";
 
@@ -32,7 +30,9 @@ interface Params {
 }
 
 const Board = ({ params }: Params) => {
-  const { colums, loadColums, createColum, createTask } = useGlobalContext();
+  const { colums, setColums, loadColums, createColum, createTask } =
+    useGlobalContext();
+
   //Use Effect para cargar las columnas
   useEffect(() => {
     loadColums(params.slug);
@@ -60,20 +60,6 @@ const Board = ({ params }: Params) => {
   // Sortable context items
   const columsID = useMemo(() => colums.map((col) => col.id), [colums]);
 
-  const [items, setItems] = useState(colums);
-  function handleDragEnd(event: any) {
-    const { active, over } = event;
-
-    if (active.id !== over.id) {
-      setItems((items) => {
-        const oldIndex = items.indexOf(active.id);
-        const newIndex = items.indexOf(over.id);
-
-        return arrayMove(items, oldIndex, newIndex);
-      });
-    }
-  }
-
   return (
     <>
       <div className="fixed max-w-[92.5%]  w-full">
@@ -81,9 +67,8 @@ const Board = ({ params }: Params) => {
       </div>
       <DndContext
         sensors={sensors}
-        collisionDetection={closestCenter}
-        onDragEnd={handleDragEnd}
         onDragStart={onDragStart}
+        onDragEnd={handleDragEnd}
       >
         <div className="flex min-h-100% w-auto mt-20">
           <SortableContext
@@ -157,8 +142,7 @@ const Board = ({ params }: Params) => {
                 tasks={activeColum.tasks}
               />
             )}
-          </DragOverlay>,
-          document.body
+          </DragOverlay>,document.body
         )}
       </DndContext>
     </>
@@ -169,6 +153,28 @@ const Board = ({ params }: Params) => {
       setActiveColum(event.active.data.current.colum);
       return;
     }
+  }
+
+  function handleDragEnd(event: DragEndEvent) {
+    const { active, over } = event;
+    if (!over) return;
+
+    const activeColumId = active.id;
+    const overColumId = over.id;
+
+    if (activeColumId === overColumId) return;
+
+    setColums((colums) => {
+      const activeColumIndex = colums.findIndex(
+        (col) => col.id === activeColumId
+      );
+
+      const overColumIndex = colums.findIndex(
+        (col) => col.id === overColumId
+      );
+
+      return arrayMove(colums, activeColumIndex, overColumIndex);
+    });
   }
 };
 

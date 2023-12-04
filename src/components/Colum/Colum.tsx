@@ -51,27 +51,17 @@ const ColumComponent = (colum: ColumPlusTasks) => {
     transition,
   };
 
-  if (isDragging) {
-    return (
-      <div
-        ref={setNodeRef}
-        style={style}
-        className="min-w-[300px] min-h-min h-min  bg-custom-bg-gray  rounded-lg p-2 mr-4"
-      ></div>
-    );
-  }
-
 
   return (
     <div
       ref={setNodeRef}
       style={style}
-      className="min-w-[300px] min-h-min h-min  bg-custom-bg-gray  rounded-lg p-2 mr-4"
+      className={isDragging ? "min-w-[300px] min-h-min h-min bg-custom-bg-gray/10 border-[1px] border-dashed border-lime-400  rounded-lg p-2 mr-4" : "min-w-[300px] min-h-min h-min  bg-custom-bg-gray  rounded-lg p-2 mr-4"}
     >
       <div
         {...attributes}
         {...listeners}
-        className="flex justify-between w-full mb-4"
+        className={isDragging ? "invisible mb-4" : "flex justify-between w-full mb-4"}
       >
         <div className="w-full ">
           <input
@@ -90,7 +80,7 @@ const ColumComponent = (colum: ColumPlusTasks) => {
         </div>
       </div>
 
-      <div className="flex flex-col">
+      <div className={isDragging ? "invisible" : "flex flex-col"}>
         {colum.tasks == undefined
           ? null
           : colum.tasks.map((task) => (
