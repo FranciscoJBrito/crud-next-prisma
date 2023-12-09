@@ -13,10 +13,10 @@ const ColumComponent = (colum: ColumPlusTasks) => {
   const { updateColum, loadTasks } = useGlobalContext();
   const [title, setTitle] = useState(colum.title);
 
-  //Cargando las tareas
+/*   //Cargando las tareas
   useEffect(() => {
     loadTasks(colum.id, colum.projectID);
-  }, []);
+  }, []); */
 
   //Manejo de titulo editable de la columna
   const handleBlur = async () => {
@@ -29,6 +29,8 @@ const ColumComponent = (colum: ColumPlusTasks) => {
       });
     }
   };
+
+  console.log("render app from colum component")
 
   // Hook
   const {

@@ -1,6 +1,3 @@
-'use client'
-import { useSortable } from "@dnd-kit/sortable";
-
 
 const Card = ({title, id}: {title: string, id: number}) => { 
 

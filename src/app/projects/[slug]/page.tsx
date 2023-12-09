@@ -6,7 +6,6 @@ import NavBar from "@/components/NavBar/NavBar";
 import ColumComponent from "@/components/Colum/Colum";
 import {
   DndContext,
-  closestCenter,
   KeyboardSensor,
   PointerSensor,
   useSensor,
@@ -36,9 +35,9 @@ const Board = ({ params }: Params) => {
   //Use Effect para cargar las columnas
   useEffect(() => {
     loadColums(params.slug);
-  }, [createTask]);
+  },[]);
 
-  // State onDragStart
+  // Estado onDragStart
   const [activeColum, setActiveColum] = useState<ColumPlusTasks | null>(null);
 
   //Estado para controlar el formulario de creación de la columna
@@ -56,6 +55,8 @@ const Board = ({ params }: Params) => {
       coordinateGetter: sortableKeyboardCoordinates,
     })
   );
+
+  console.log('refresh dom')
 
   // Sortable context items
   const columsID = useMemo(() => colums.map((col) => col.id), [colums]);
@@ -75,9 +76,9 @@ const Board = ({ params }: Params) => {
             items={columsID}
             strategy={horizontalListSortingStrategy}
           >
-            {colums.map((colum, i) => (
+            {colums.map((colum, index) => (
               <ColumComponent
-                key={i}
+                key={index}
                 id={colum.id}
                 projectID={colum.projectID}
                 title={colum.title}
@@ -132,7 +133,7 @@ const Board = ({ params }: Params) => {
             </form>
           </div>
         </div>
-        {createPortal(
+        {/* {createPortal( */}
           <DragOverlay>
             {activeColum && (
               <ColumComponent
@@ -142,8 +143,9 @@ const Board = ({ params }: Params) => {
                 tasks={activeColum.tasks}
               />
             )}
-          </DragOverlay>,document.body
-        )}
+          </DragOverlay>{/* ,
+          document.body
+        )} */}
       </DndContext>
     </>
   );
@@ -159,21 +161,17 @@ const Board = ({ params }: Params) => {
     const { active, over } = event;
     if (!over) return;
 
-    const activeColumId = active.id;
-    const overColumId = over.id;
+    const activeId = active.id;
+    const overId = over.id;
 
-    if (activeColumId === overColumId) return;
+    if (activeId === overId) return;
 
-    setColums((colums) => {
-      const activeColumIndex = colums.findIndex(
-        (col) => col.id === activeColumId
-      );
+    setColums((columns) => {
+      const activeColumnIndex = columns.findIndex((col) => col.id === activeId);
 
-      const overColumIndex = colums.findIndex(
-        (col) => col.id === overColumId
-      );
+      const overColumnIndex = columns.findIndex((col) => col.id === overId);
 
-      return arrayMove(colums, activeColumIndex, overColumIndex);
+      return arrayMove(columns, activeColumnIndex, overColumnIndex);
     });
   }
 };
