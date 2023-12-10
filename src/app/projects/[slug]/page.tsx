@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useCallback } from "react";
 import { useGlobalContext } from "@/hooks/useGlobalContext";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import NavBar from "@/components/NavBar/NavBar";
@@ -42,9 +42,9 @@ const Board = ({ params }: Params) => {
 
   //Estado para controlar el formulario de creación de la columna
   const [showForm, setShowForm] = useState(false);
-  const handleFrom = () => {
-    setShowForm(!showForm);
-  };
+  const handleFrom = useCallback(() => {
+    setShowForm((prevShowForm) => !prevShowForm);
+  }, []);
 
   //Estado para almacenar el valor del input
   const [title, setTitle] = useState("");
@@ -60,6 +60,7 @@ const Board = ({ params }: Params) => {
 
   // Sortable context items
   const columsID = useMemo(() => colums.map((col) => col.id), [colums]);
+
 
   return (
     <>

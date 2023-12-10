@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import { useGlobalContext } from "@/hooks/useGlobalContext";
 import ColumDropDown from "../ui/ColumDropDown";
 import Card from "../ui/Card";
@@ -30,7 +30,7 @@ const ColumComponent = (colum: ColumPlusTasks) => {
     }
   };
 
-  console.log("render app from colum component")
+  console.log(`render app from colum component ${colum.id}`)
 
   // Hook
   const {
