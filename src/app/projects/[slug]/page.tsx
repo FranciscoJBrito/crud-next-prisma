@@ -29,7 +29,7 @@ interface Params {
 }
 
 const Board = ({ params }: Params) => {
-  const { colums, setColums, loadColums, createColum, createTask } =
+  const { colums, columsState,setColums, loadColums, createColum, createTask } =
     useGlobalContext();
 
   //Use Effect para cargar las columnas
@@ -59,7 +59,7 @@ const Board = ({ params }: Params) => {
   console.log('refresh dom')
 
   // Sortable context items
-  const columsID = useMemo(() => colums.map((col) => col.id), [colums]);
+  const columsID = useMemo(() => columsState.map((col) => col.id), [colums]);
 
 
   return (
@@ -77,7 +77,7 @@ const Board = ({ params }: Params) => {
             items={columsID}
             strategy={horizontalListSortingStrategy}
           >
-            {colums.map((colum, index) => (
+            {columsState.map((colum, index) => (
               <ColumComponent
                 key={index}
                 id={colum.id}

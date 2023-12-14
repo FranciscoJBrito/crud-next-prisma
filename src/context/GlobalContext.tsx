@@ -1,15 +1,17 @@
 "use client";
-import { createContext, useState, Dispatch, SetStateAction } from "react";
+import { createContext, useState, Dispatch, SetStateAction, useReducer } from "react";
 import { Project, Colum, Task } from "@prisma/client";
 import { CreateProject } from "@/interfaces/Project";
 import { ColumPlusTasks, CreateColum } from "@/interfaces/Colum";
 import { CreateTask } from "@/interfaces/Task";
+import { taskReducer } from "./taskReducer";
 
 export const GlobalContext = createContext<{
   projects: Project[];
   loadProjects: () => Promise<void>;
   createProject: (project: CreateProject) => Promise<void>;
   colums: ColumPlusTasks[];
+  columsState: ColumPlusTasks[];
   setColums: Dispatch<SetStateAction<ColumPlusTasks[]>>;
   loadColums: (id: string |number) => Promise<void>;
   createColum: (colum: CreateColum) => Promise<void>;
@@ -23,6 +25,7 @@ export const GlobalContext = createContext<{
   loadProjects: async () => {},
   createProject: async (project: CreateProject) => {},
   colums: [],
+  columsState: [],
   setColums: () => {},
   loadColums: async (id: string | number) => {},
   createColum: async (colum: CreateColum) => {},
@@ -37,6 +40,8 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [colums, setColums] = useState<ColumPlusTasks[]>([])
   const [tasks, setTasks] = useState<Task[]>([])
+  let initialState: ColumPlusTasks[] = [];
+const [columsState, dispatch] = useReducer(taskReducer, initialState);
 
 
 /* <-- FUNCIONES DE PROYECTOS --> */ 
@@ -68,7 +73,7 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
   const loadColums = async (id: number | string) => {
     const res = await fetch(`/api/projects/${id}/colums`)
     const data = await res.json()
-    setColums(data);
+    dispatch({ type: 'SET_INITIAL_COLUMNS', payload: data })
   }
 
   //Función para crear una columna
@@ -81,7 +86,8 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
       },
     });
     const newColum = await res.json()
-    setColums([...colums, newColum])
+    dispatch({type: 'ADD_COLUM', payload: newColum})
+    //setColums([...colums, newColum])
   }
 
   //Función para editar el titulo de una columna
@@ -130,7 +136,7 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
 
 
   return (
-    <GlobalContext.Provider value={{ projects, loadProjects, createProject, colums, setColums,loadColums, createColum, updateColum, deleteColum, tasks, loadTasks, createTask }}>
+    <GlobalContext.Provider value={{ projects, loadProjects, createProject, colums, columsState, setColums,loadColums, createColum, updateColum, deleteColum, tasks, loadTasks, createTask }}>
       {children}
     </GlobalContext.Provider>
   );
