@@ -4,7 +4,7 @@ import { Project, Colum, Task } from "@prisma/client";
 import { CreateProject } from "@/interfaces/Project";
 import { ColumPlusTasks, CreateColum } from "@/interfaces/Colum";
 import { CreateTask } from "@/interfaces/Task";
-import { taskReducer } from "./taskReducer";
+import { TaskAction, taskReducer } from "./taskReducer";
 
 export const GlobalContext = createContext<{
   projects: Project[];
@@ -12,7 +12,7 @@ export const GlobalContext = createContext<{
   createProject: (project: CreateProject) => Promise<void>;
   colums: ColumPlusTasks[];
   columsState: ColumPlusTasks[];
-  setColums: Dispatch<SetStateAction<ColumPlusTasks[]>>;
+  dispatch: Dispatch<TaskAction>;
   loadColums: (id: string |number) => Promise<void>;
   createColum: (colum: CreateColum) => Promise<void>;
   updateColum: (id: number, colum: CreateColum) => Promise<void>
@@ -26,7 +26,7 @@ export const GlobalContext = createContext<{
   createProject: async (project: CreateProject) => {},
   colums: [],
   columsState: [],
-  setColums: () => {},
+  dispatch: () => {},
   loadColums: async (id: string | number) => {},
   createColum: async (colum: CreateColum) => {},
   updateColum: async (id: number, colum: CreateColum) => {},
@@ -41,7 +41,7 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
   const [colums, setColums] = useState<ColumPlusTasks[]>([])
   const [tasks, setTasks] = useState<Task[]>([])
   let initialState: ColumPlusTasks[] = [];
-const [columsState, dispatch] = useReducer(taskReducer, initialState);
+  const [columsState, dispatch] = useReducer(taskReducer, initialState);
 
 
 /* <-- FUNCIONES DE PROYECTOS --> */ 
@@ -87,7 +87,6 @@ const [columsState, dispatch] = useReducer(taskReducer, initialState);
     });
     const newColum = await res.json()
     dispatch({type: 'ADD_COLUM', payload: newColum})
-    //setColums([...colums, newColum])
   }
 
   //Función para editar el titulo de una columna
@@ -136,7 +135,7 @@ const [columsState, dispatch] = useReducer(taskReducer, initialState);
 
 
   return (
-    <GlobalContext.Provider value={{ projects, loadProjects, createProject, colums, columsState, setColums,loadColums, createColum, updateColum, deleteColum, tasks, loadTasks, createTask }}>
+    <GlobalContext.Provider value={{ projects, loadProjects, createProject, colums, columsState, dispatch,loadColums, createColum, updateColum, deleteColum, tasks, loadTasks, createTask }}>
       {children}
     </GlobalContext.Provider>
   );

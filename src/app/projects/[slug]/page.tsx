@@ -29,7 +29,7 @@ interface Params {
 }
 
 const Board = ({ params }: Params) => {
-  const { colums, columsState,setColums, loadColums, createColum, createTask } =
+  const { colums, columsState, dispatch, loadColums, createColum, createTask } =
     useGlobalContext();
 
   //Use Effect para cargar las columnas
@@ -167,13 +167,15 @@ const Board = ({ params }: Params) => {
 
     if (activeId === overId) return;
 
-    setColums((columns) => {
+    dispatch({ type: 'REORDER_COLUMNS', payload: { activeId, overId } })
+
+    /* setColums((columns) => {
       const activeColumnIndex = columns.findIndex((col) => col.id === activeId);
 
       const overColumnIndex = columns.findIndex((col) => col.id === overId);
 
       return arrayMove(columns, activeColumnIndex, overColumnIndex);
-    });
+    }); */
   }
 };
 
