@@ -32,7 +32,7 @@ export async function GET(request: Request, { params }: Params) {
 }
 
 //Función para actualizar un proyecto
-export async function PUT(request: Request, { params }: Params) {
+export async function PATCH(request: Request, { params }: Params) {
   try {
     const { title } = await request.json();
     const editedProject = await prisma.project.update({
@@ -57,6 +57,39 @@ export async function PUT(request: Request, { params }: Params) {
     }
   }
 }
+
+
+
+/* export async function PUT(request: Request,{ params}: Params) {
+  try {
+    const colums = await request.json();
+    const updatedColums = await prisma.project.update({
+      where: {
+        id: Number(params.projectID)
+      },
+      data: {
+        colums,
+      }
+    });
+    return NextResponse.json(updatedColums);
+  } catch (error) {
+    if (error instanceof Error) {
+      return NextResponse.json(
+        {
+          message: error.message,
+        },
+        {
+          status: 500,
+        }
+      );
+    }
+  }
+} */
+
+
+
+
+
 
 //Función para eliminar un proyecto
 export async function DELETE(request: Request, { params }: Params) {

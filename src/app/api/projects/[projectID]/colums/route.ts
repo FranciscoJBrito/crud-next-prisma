@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/libs/prisma";
 
 interface Params {
-  params: {projectID: string}
+  params: { projectID: string };
 }
 
 
@@ -58,3 +58,30 @@ export async function POST(request: Request) {
     }
   }
 }
+
+
+/* export async function PUT(request: Request,{ params}: Params) {
+  try {
+    const colums = await request.json();
+    const updatedColums = await prisma.colum.updateMany({
+      where: {
+        id: Number(params.projectID)
+      },
+      data: {
+        colums,
+      }
+    });
+    return NextResponse.json(updatedColums);
+  } catch (error) {
+    if (error instanceof Error) {
+      return NextResponse.json(
+        {
+          message: error.message,
+        },
+        {
+          status: 500,
+        }
+      );
+    }
+  }
+} */
