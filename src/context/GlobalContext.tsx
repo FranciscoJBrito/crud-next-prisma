@@ -17,6 +17,7 @@ export const GlobalContext = createContext<{
   createColum: (colum: CreateColum) => Promise<void>;
   updateColum: (id: number, colum: CreateColum) => Promise<void>
   deleteColum: (id: number, projectID: number) => Promise<void>
+  updateLocalStorage: (state: ColumPlusTasks[]) => void
   tasks: Task[];
   loadTasks: (id: number, projectID: number) => Promise<void>
   createTask: (projectID: number | string, task: CreateTask) => Promise<void>
@@ -31,6 +32,7 @@ export const GlobalContext = createContext<{
   createColum: async (colum: CreateColum) => {},
   updateColum: async (id: number, colum: CreateColum) => {},
   deleteColum: async (id: number, projectID: number) => {},
+  updateLocalStorage: () => {},
   tasks: [],
   loadTasks: async (id: number, projectID: number) => {},
   createTask: async (projectID: number | string, task: CreateTask) => {}
@@ -71,10 +73,15 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
 
   //Función para cargar las columnas
   const loadColums = async (id: number | string) => {
-    const res = await fetch(`/api/projects/${id}/colums`)
-    const data = await res.json()
-    dispatch({ type: 'SET_INITIAL_COLUMNS', payload: data })
-  }
+    const storedColums = localStorage.getItem('colums');
+    if (storedColums) {
+      dispatch({ type: 'SET_INITIAL_COLUMNS', payload: JSON.parse(storedColums) });
+    } else {
+      const res = await fetch(`/api/projects/${id}/colums`);
+      const data = await res.json();
+      dispatch({ type: 'SET_INITIAL_COLUMNS', payload: data });
+    }
+  };
 
   //Función para crear una columna
   const createColum = async (colum: CreateColum) => {
@@ -133,9 +140,12 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
     setTasks([...tasks, newTask])
   }
 
+  const updateLocalStorage = (state: ColumPlusTasks[]) => {
+    localStorage.setItem('colums', JSON.stringify(state));
+  };
 
   return (
-    <GlobalContext.Provider value={{ projects, loadProjects, createProject, colums, columsState, dispatch,loadColums, createColum, updateColum, deleteColum, tasks, loadTasks, createTask }}>
+    <GlobalContext.Provider value={{ projects, loadProjects, createProject, colums, columsState, dispatch,loadColums, createColum, updateColum, deleteColum, updateLocalStorage, tasks, loadTasks, createTask }}>
       {children}
     </GlobalContext.Provider>
   );

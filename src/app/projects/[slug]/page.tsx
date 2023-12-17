@@ -29,16 +29,19 @@ interface Params {
 }
 
 const Board = ({ params }: Params) => {
-  const { colums, columsState, dispatch, loadColums, createColum, createTask } =
+  const { columsState, dispatch, loadColums, createColum, createTask } =
     useGlobalContext();
 
   //Use Effect para cargar las columnas
   useEffect(() => {
     loadColums(params.slug);
+    return () => {
+      localStorage.removeItem('colums');
+    };
   },[]);
 
   // Estado onDragStart
-  const [activeColum, setActiveColum] = useState<ColumPlusTasks | null>(null);
+  const [activeColum, setActiveColum] = useState<ColumPlusTasks | null>();
 
   //Estado para controlar el formulario de creación de la columna
   const [showForm, setShowForm] = useState(false);
@@ -56,11 +59,6 @@ const Board = ({ params }: Params) => {
     })
   );
 
-  console.log('refresh dom')
-
-  // Sortable context items
-  const columsID = useMemo(() => columsState.map((col) => col.id), [colums]);
-
 
   return (
     <>
@@ -74,12 +72,12 @@ const Board = ({ params }: Params) => {
       >
         <div className="flex min-h-100% w-auto mt-20">
           <SortableContext
-            items={columsID}
+            items={columsState}
             strategy={horizontalListSortingStrategy}
           >
-            {columsState.map((colum, index) => (
+            {columsState.map((colum) => (
               <ColumComponent
-                key={index}
+                key={colum.id}
                 id={colum.id}
                 projectID={colum.projectID}
                 title={colum.title}
@@ -134,7 +132,7 @@ const Board = ({ params }: Params) => {
             </form>
           </div>
         </div>
-        {/* {createPortal( */}
+        {createPortal(
           <DragOverlay>
             {activeColum && (
               <ColumComponent
@@ -144,17 +142,18 @@ const Board = ({ params }: Params) => {
                 tasks={activeColum.tasks}
               />
             )}
-          </DragOverlay>{/* ,
+          </DragOverlay>,
           document.body
-        )} */}
+        )}
       </DndContext>
     </>
   );
 
   function onDragStart(event: DragStartEvent) {
-    if (event.active.data.current?.type === "ColumPlusTask") {
+    if (event.active.data.current?.type === "ColumPlusTask" && event.active.data.current.colum != activeColum) {
       setActiveColum(event.active.data.current.colum);
-      return;
+      console.log('este es el render ', activeColum, event.active.data.current.colum)
+      //return;
     }
   }
 
