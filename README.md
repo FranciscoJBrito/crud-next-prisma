@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Limetask
+Limetask es un proyecto open source diseñado para la gestión de tareas y proyectos, con funcionalidades similares a Trello. Facilita la organización y seguimiento de tareas en un entorno colaborativo.
 
-## Getting Started
+# Instalación
+## Sin Docker
+Clona el repositorio:
+`git clone https://github.com/tu-usuario/limetask.git`
 
-First, run the development server:
+Instala las dependencias:
+`npm install`
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Ejecuta las migraciones de la base de datos:
+`npx prisma migrate dev`
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Inicia el servidor:
+`npm run dev`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Con Docker
+Construye la imagen Docker:
+`docker build -t limetask .`
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Ejecuta el contenedor:
+`docker run limetask`
 
-## Learn More
+# Tecnologías Utilizadas
+* TypeScript
+* Prisma ORM
+* Next.js
+* Tailwind CSS
 
-To learn more about Next.js, take a look at the following resources:
+#Contribuciones
+¡Contribuciones son bienvenidas! Si deseas contribuir al proyecto, sigue estos pasos:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Haz un fork del repositorio.
+Crea una rama para tu contribución: git checkout -b feature/nueva-funcionalidad.
+Realiza tus cambios y haz commit: git commit -m "Añadir nueva funcionalidad".
+Haz push a tu rama: git push origin feature/nueva-funcionalidad.
+Abre un Pull Request en GitHub.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+# Licencia
+Este proyecto está bajo la licencia MIT.
