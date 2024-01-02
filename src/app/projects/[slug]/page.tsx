@@ -29,9 +29,7 @@ interface Params {
 }
 
 const Board = ({ params }: Params) => {
-  const { columsState, dispatch, loadColums, createColum, createTask } =
-    useGlobalContext();
-
+  
   //Use Effect para cargar las columnas
   useEffect(() => {
     loadColums(params.slug);
@@ -39,6 +37,9 @@ const Board = ({ params }: Params) => {
       localStorage.removeItem('colums');
     };
   },[]);
+
+  const { columsState, dispatch, loadColums, createColum, createTask } =
+    useGlobalContext();
 
   // Estado onDragStart
   const [activeColum, setActiveColum] = useState<ColumPlusTasks | null>();
@@ -53,7 +54,11 @@ const Board = ({ params }: Params) => {
   const [title, setTitle] = useState("");
 
   const sensors = useSensors(
-    useSensor(PointerSensor),
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 3, 
+      },
+    }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     })
@@ -68,7 +73,7 @@ const Board = ({ params }: Params) => {
       <DndContext
         sensors={sensors}
         onDragStart={onDragStart}
-        onDragEnd={handleDragEnd}
+        //onDragEnd={handleDragEnd}
       >
         <div className="flex min-h-100% w-auto mt-20">
           <SortableContext
@@ -157,7 +162,7 @@ const Board = ({ params }: Params) => {
     }
   }
 
-  function handleDragEnd(event: DragEndEvent) {
+  /*function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
     if (!over) return;
 
@@ -168,14 +173,14 @@ const Board = ({ params }: Params) => {
 
     dispatch({ type: 'REORDER_COLUMNS', payload: { activeId, overId } })
 
-    /* setColums((columns) => {
+    setColums((columns) => {
       const activeColumnIndex = columns.findIndex((col) => col.id === activeId);
 
       const overColumnIndex = columns.findIndex((col) => col.id === overId);
 
       return arrayMove(columns, activeColumnIndex, overColumnIndex);
-    }); */
-  }
+    });
+  } */
 };
 
 export default Board;
