@@ -25,13 +25,7 @@ Start the server:
 
 ## Contributions
 
-Contributions are welcome! If you want to contribute to the project, follow these steps:
-
-Fork the repository.
-Create a branch for your contribution: git checkout -b feature/new-feature.
-Make your changes and commit: git commit -m "Add new functionality."
-Push your branch: git push origin feature/new-feature.
-Open a Pull Request on GitHub.
+Contributions are welcome! If you want to contribute to the project, follow the [contribution guide](./CONTRIBUTING.md)
 
 ## License
 
@@ -66,13 +60,7 @@ Inicia el servidor:
 
 ## Contribuciones
 
-¡Contribuciones son bienvenidas! Si deseas contribuir al proyecto, sigue estos pasos:
-
-Haz un fork del repositorio.
-Crea una rama para tu contribución: git checkout -b feature/nueva-funcionalidad.
-Realiza tus cambios y haz commit: git commit -m "Añadir nueva funcionalidad".
-Haz push a tu rama: git push origin feature/nueva-funcionalidad.
-Abre un Pull Request en GitHub.
+¡Contribuciones son bienvenidas! Si deseas contribuir al proyecto, sigue la [guía de contribución](./CONTRIBUTING.md)
 
 ## Licencia
 
